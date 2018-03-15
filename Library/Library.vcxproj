@@ -142,6 +142,30 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CSendMail.cpp" />
+    <ClCompile Include="HH.cpp" />
+    <ClCompile Include="md5.cpp" />
+    <ClCompile Include="test.cpp" />
+    <ClCompile Include="test_mail.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Admin.h" />
+    <ClInclude Include="Book.h" />
+    <ClInclude Include="BookCategory.h" />
+    <ClInclude Include="BorrowInfo.h" />
+    <ClInclude Include="CollectBook.h" />
+    <ClInclude Include="CSendMail.h" />
+    <ClInclude Include="HH.h" />
+    <ClInclude Include="LogInfo.h" />
+    <ClInclude Include="md5.h" />
+    <ClInclude Include="Operation.h" />
+    <ClInclude Include="Order.h" />
+    <ClInclude Include="Student.h" />
+    <ClInclude Include="StudentMajor.h" />
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
