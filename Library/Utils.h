@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <sstream>
+#include <set>
 using namespace std;
 class Utils {
 
@@ -16,6 +17,11 @@ public:
 
 	//时间操作 yyyy-MM-dd xx:xx:xx
 	static string getNowTime();
+
+
+	//集合求交集,结果放在A中
+	static void setIntersection(set<int> &a, const set<int> &b);
+
 };
 
 template<typename T>

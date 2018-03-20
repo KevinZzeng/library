@@ -88,6 +88,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>false</SDLCheck>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -143,7 +144,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CSendMail.cpp" />
-    <ClCompile Include="HH.cpp" />
+    <ClCompile Include="Dao.cpp" />
     <ClCompile Include="md5.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="test_mail.cpp">
@@ -158,13 +159,16 @@
     <ClInclude Include="BorrowInfo.h" />
     <ClInclude Include="CollectBook.h" />
     <ClInclude Include="CSendMail.h" />
-    <ClInclude Include="HH.h" />
+    <ClInclude Include="Dao.h" />
+    <ClInclude Include="Data.h" />
+    <ClInclude Include="DaoDemo.h" />
     <ClInclude Include="LogInfo.h" />
     <ClInclude Include="md5.h" />
     <ClInclude Include="Operation.h" />
     <ClInclude Include="Order.h" />
     <ClInclude Include="Student.h" />
     <ClInclude Include="StudentMajor.h" />
+    <ClInclude Include="Table.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
