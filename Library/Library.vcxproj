@@ -143,9 +143,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Admin.cpp" />
     <ClCompile Include="CSendMail.cpp" />
     <ClCompile Include="Dao.cpp" />
     <ClCompile Include="md5.cpp" />
+    <ClCompile Include="Operation.cpp" />
+    <ClCompile Include="Order.cpp" />
+    <ClCompile Include="Student.cpp" />
+    <ClCompile Include="StudentMajor.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="test_mail.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
