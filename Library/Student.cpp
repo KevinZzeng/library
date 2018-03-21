@@ -15,7 +15,7 @@ bool Student::login(string numberID, string password)
 	v.push_back(make_pair(0, this->numberID));
 	v.push_back(make_pair(1, this->password));
 	Dao dao;
-	vector<map<int, char *>> studentInfo = dao.select("Student", v);
+	vector<map<int, char *>> studentInfo = dao.select("users", v);
 	//查询到对应学生
 	if (!studentInfo.empty()) {
 		map<int, char*> student = studentInfo[0];
@@ -54,8 +54,15 @@ bool Student::save()
 	insertInfo.push_back(make_pair(6, email));
 	insertInfo.push_back(make_pair(7, reinterpret_cast<char*>(status)));
 	//存入数据库
-	dao.inster_into("users", insertInfo);
-	return false;
+	bool ifSuccess = true;
+	try {
+		dao.inster_into("users", insertInfo);
+	}
+	catch (exception e) {
+		ifSuccess = false;
+	}
+
+	return ifSuccess;
 }
 
 bool Student::destory()
