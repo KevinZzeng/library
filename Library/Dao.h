@@ -28,11 +28,13 @@ public:
 
 	Dao();
 
-	//inster_into vector <key, value>  key 是属性类型的宽度，value 是序列化的成员变量
-	void inster_into(const string tableName, vector<pair<int, char *> > &v);
+	//void inster_into(const string tableName, vector<pair<int, char *> > &v);  //废弃函数
+	//inster_into vector <value> value 是序列化的成员变量，按照顺序写入vector
+	void inster_into(const string tableName, vector<char *> &v);
 	
-	//updae vector <key, value>  key 是类成员在类中的顺序编号(确实存在于数据库的数据顺序，服务于数据库增加的ID不算做)
-	bool update(const string tableName, int id, vector<pair<int, char *> > &v);
+	//bool update(const string tableName, int id, vector<pair<int, char *> > &v); //废弃函数
+	//updae vector <value> value 是序列化的成员变量，按照顺序写入vector
+	bool update(const string tableName, int id, vector<char *> &v);
 
 	bool delete_from(const string tableName, int id);
 

@@ -14,7 +14,7 @@ Dao::Dao()
 	this->_tableName = "";
 }
 
-void Dao::inster_into(const string tableName, vector<pair<int, char*>> &v)
+void Dao::inster_into(const string tableName, vector<char*> &v)
 {
 	init(tableName);
 	//从数据库底层拿到 length[] & colums 也可以 
@@ -29,10 +29,10 @@ void Dao::inster_into(const string tableName, vector<pair<int, char*>> &v)
 		rowLen += *it;
 
 	char *res = new char[rowLen];
-	int step = 0;
-	for (vector<pair<int, char *> >::iterator it = v.begin(); it != v.end(); ++it) {
-		memcpy(res + step, it->second, it->first);
-		step += it->first;
+	int step = 0, i =0;
+	for (vector<char *>::iterator it = v.begin(); it != v.end(); ++it) {
+		memcpy(res + step, *it, t_info[i]);
+		step += t_info[i++];
 	}
 
 	//存入数据库
@@ -40,19 +40,28 @@ void Dao::inster_into(const string tableName, vector<pair<int, char*>> &v)
 	
 }
 
-bool Dao::update(const string tableName, int id, vector<pair<int, char*>> &v)
+bool Dao::update(const string tableName, int id, vector<char*> &v)
 {
 	init(tableName);
 	if (id == -1)
 		return false;
 
+	//获取原来对象属性，确定哪个属性发生了变化，然后进行update
+	vector<int> submitColumn;
+	map<int, char *> obj = this->getById(tableName, id);
+	for (map<int, char *>::iterator it = obj.begin(); it != obj.end(); ++it) {
+		if (strcmp(it->second, v[it->first]) != 0) {
+			submitColumn.push_back(it->first);
+		}
+	}
+
 	//逐项提交到数据库
-	for (vector<pair<int, char*>>::iterator it = v.begin(); it != v.end(); ++it) {
-		_table.change(id, it->first, it->second);
+	for (vector<int>::iterator it = submitColumn.begin(); it != submitColumn.end(); ++it) {
+		_table.change(id, *it , v[*it]);
 	}
 	return true;
-
 }
+
 
 bool Dao::delete_from(const string tableName, int id)
 {
