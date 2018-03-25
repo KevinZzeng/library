@@ -8,12 +8,32 @@ bool Student::login(string numberID, string password)
 	strcpy(this->numberID, numberID.c_str());
 	strcpy(this->password, password.c_str());
 	//判断是否正确，查询数据库
-	bool signin = false;
+	//构造查询参数
+	MD5 password_md5 = MD5(password);
+	strcpy(this->password, (char*)password_md5.getDigest());
+	vector<pair<int, char*> > v;
+	v.push_back(make_pair(0, this->numberID));
+	v.push_back(make_pair(1, this->password));
+	Dao dao;
+	vector<map<int, char *>> studentInfo = dao.select("users", v);
+	//查询到对应学生
+	if (!studentInfo.empty()) {
+		map<int, char*> student = studentInfo[0];
+		//填充对应信息
+		strcpy(this->name, student[2]);
+		this->major = reinterpret_cast<int> (student[3]);
+		strcpy(this->photo, student[4]);
+		this->money = reinterpret_cast<int> (student[5]);
+		//获取书籍过期信息，重置money
+		vector<BorrowInfo> vb = BorrowInfo::getInfoByNumberID(numberID, EXCEED);
+		//获取时间比较？时间格式？
 
 
-	if (signin) {
-		setName
-			return true;
+
+		strcpy(this->email, student[6]);
+		this->status = (status_class)reinterpret_cast<int> (student[8]);
+
+		return true;
 	}
 	else {
 		return false;
@@ -22,22 +42,68 @@ bool Student::login(string numberID, string password)
 
 bool Student::save()
 {
-	return false;
+	Dao dao;
+	vector<pair<int, char *> > insertInfo;
+	//构造参数
+	insertInfo.push_back(make_pair(0, numberID));
+	insertInfo.push_back(make_pair(1, password));
+	insertInfo.push_back(make_pair(2, name));
+	insertInfo.push_back(make_pair(3, reinterpret_cast<char*>(major)));
+	insertInfo.push_back(make_pair(4, photo));
+	insertInfo.push_back(make_pair(5, reinterpret_cast<char*>(money)));
+	insertInfo.push_back(make_pair(6, email));
+	insertInfo.push_back(make_pair(7, reinterpret_cast<char*>(status)));
+	//存入数据库
+	bool ifSuccess = true;
+	try {
+		dao.inster_into("users", insertInfo);
+	}
+	catch (exception e) {
+		ifSuccess = false;
+	}
+
+	return ifSuccess;
 }
 
 bool Student::destory()
 {
-	return false;
+	if (id == -1)
+		return false;
+	else {
+		Dao dao;
+		dao.delete_from("users", id);
+		return true;
+	}
 }
 
 vector<Book> Student::getInterestingBooks()
 {
-	return vector<Book>();
+	//获取以往借阅书籍的ISBN
+	vector<BorrowInfo> vb = BorrowInfo::getHistoryInfoByNumberID(string(numberID));
+	vector<BorrowInfo>::iterator iter;
+	//遍历通过ISBN获取category，通过category获取同类书籍
+	vector<Book> interestingBook;
+	for (iter = vb.begin(); iter != vb.end(); iter++) 
+	{
+		//拼接vector
+		vector<Book> interestingBook_temp = Book::getBooksByCategory(Book((*iter).getISBN_ID()).getCategory());
+		interestingBook.insert(interestingBook.end(), interestingBook_temp.begin(), interestingBook_temp.end());
+	}
+	return interestingBook;
 }
 
 vector<string> Student::getMessages()
 {
-	return vector<string>();
+	//查询图书情况
+	vector<BorrowInfo> vb = BorrowInfo::getInfoByNumberID(numberID, EXCEED);
+	vector<string> result;
+	//返回到期图书
+	if (!vb.empty()) 
+	{
+		string bookInfo = "有" + to_string(vb.size()) + "本图书已到期！";
+		result.push_back(bookInfo);
+	}
+	return result;
 }
 
 void Student::setId(int id)
@@ -87,7 +153,7 @@ void Student::setMajor(int major)
 
 int Student::getMajor()
 {
-	return 0;
+	return major;
 }
 
 void Student::setPhoto(string photo)
@@ -100,12 +166,12 @@ string Student::getPhoto()
 	return string(photo);
 }
 
-void Student::setMoney(double money)
+void Student::setMoney(int money)
 {
 	this->money = money;
 }
 
-double Student::getMoney()
+int Student::getMoney()
 {
 	return money;
 }

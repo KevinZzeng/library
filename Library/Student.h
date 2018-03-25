@@ -1,6 +1,11 @@
 #pragma once
+#include <iostream>
+#include <sstream>
 #include <vector>
 #include "Book.h"
+#include "Dao.h"
+#include "md5.h"
+#include "BorrowInfo.h"
 using namespace std;
 enum status_class {
 	NORMAL, LOCK
@@ -15,7 +20,7 @@ private:
 	int major;
 	char photo[200];
 	//一天一元计算公式
-	double money;
+	int money;
 	char email[30];
 	status_class status;
 public:
@@ -32,8 +37,8 @@ public:
 	int getMajor();
 	void setPhoto(string photo);
 	string getPhoto();
-	void setMoney(double money);
-	double getMoney();
+	void setMoney(int money);
+	int getMoney();
 	void setEmail(string email);
 	string getEmail();
 	void setStatus(status_class status);

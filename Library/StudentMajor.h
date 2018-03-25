@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "Dao.h"
 using namespace std;
 class StudentMajor {
 private:

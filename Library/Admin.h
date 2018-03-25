@@ -4,6 +4,7 @@
 using namespace std;
 class Admin {
 private:
+	int id;
 	char numberID[13];
 	char password[33];
 	char email[30];
@@ -12,6 +13,8 @@ public:
 	Admin();
 	bool login(string numberID, string password);
 	bool save();
+	void setId(int id);
+	int getId();
 	void setEmail(string email);
 	string getEmail();
 	bool addStudent(Student &stu);

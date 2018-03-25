@@ -17,6 +17,7 @@ private:
 
 public:
 	bool save();
+	int getCategory();
 	//É¾³ýÒ»±¾Êé
 	bool destory();
 	static Book getBookByISBN(string ISBN);
