@@ -9,6 +9,7 @@ private:
 public:
 	void setMajor(string major);
 	string getMajor();
+	void setId(int id);
 	int getId();
 	int getIDByMajor(string major);
 	bool save();

@@ -43,20 +43,27 @@ bool Student::login(string numberID, string password)
 bool Student::save()
 {
 	Dao dao;
-	vector<pair<int, char *> > insertInfo;
+	vector<char *> insertInfo;
 	//构造参数
-	insertInfo.push_back(make_pair(0, numberID));
-	insertInfo.push_back(make_pair(1, password));
-	insertInfo.push_back(make_pair(2, name));
-	insertInfo.push_back(make_pair(3, reinterpret_cast<char*>(major)));
-	insertInfo.push_back(make_pair(4, photo));
-	insertInfo.push_back(make_pair(5, reinterpret_cast<char*>(money)));
-	insertInfo.push_back(make_pair(6, email));
-	insertInfo.push_back(make_pair(7, reinterpret_cast<char*>(status)));
+	insertInfo.push_back(numberID);
+	insertInfo.push_back(password);
+	insertInfo.push_back(name);
+	insertInfo.push_back(reinterpret_cast<char*>(major));
+	insertInfo.push_back(photo);
+	insertInfo.push_back(reinterpret_cast<char*>(money));
+	insertInfo.push_back(email);
+	insertInfo.push_back(reinterpret_cast<char*>(status));
 	//存入数据库
 	bool ifSuccess = true;
 	try {
-		dao.inster_into("users", insertInfo);
+		//增加
+		if (id == -1) {
+			dao.inster_into("users", insertInfo);
+		}
+		//更新
+		else {
+			dao.update("users", id, insertInfo);
+		}
 	}
 	catch (exception e) {
 		ifSuccess = false;

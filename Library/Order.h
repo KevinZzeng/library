@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "Dao.h"
 using namespace std;
 enum status_order { BEING, CAN, DONE };
 class Order {
@@ -13,6 +14,8 @@ private:
 	//预约中： BEGIN  可预约： CAN  已完成:DONE
 	status_order status;
 public:
+	Order();
+	Order(string ISBN, string numberID, string order_date, string deadline);
 	void setISBN(string ISBN);
 	string getISBN();
 	void setNumberID(string numberID);
@@ -25,6 +28,6 @@ public:
 	status_order getStatus();
 	bool save();
 	bool destory();
-	static vector<Order> getOrdersByNumberID(string number);
+	static vector<Order*> getOrdersByNumberID(string number);
 
 };

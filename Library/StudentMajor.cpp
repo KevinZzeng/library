@@ -10,6 +10,11 @@ string StudentMajor::getMajor()
 	return string(major);
 }
 
+void StudentMajor::setId(int id)
+{
+	this->id = id;
+}
+
 int StudentMajor::getId()
 {
 	return id;
@@ -23,18 +28,24 @@ int StudentMajor::getIDByMajor(string major)
 	v.push_back(make_pair(0, this->major));
 	//查询major对应的id
 	vector<map<int, char *>> result = dao.select("studentMajor", v);
-	return reinterpret_cast<int>(result[0][-1]);
+	id = reinterpret_cast<int>(result[0][-1]);
+	return id;
 }
 
 bool StudentMajor::save()
 {
 	Dao dao;
-	vector<pair<int, char*> > v;
+	vector<char*> v;
 	//构造插入数据
-	v.push_back(make_pair(0, major));
+	v.push_back(major);
 	bool ifSuccess = true;
 	try {
-		dao.inster_into("studentMajor", v);
+		if (id == -1) {
+			dao.inster_into("studentMajor", v);
+		}
+		else {
+			dao.update("studentMajor", id, v);
+		}
 	}
 	catch(exception e){
 		ifSuccess = false;
