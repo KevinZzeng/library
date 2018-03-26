@@ -8,6 +8,7 @@
 #include <set>
 #include "Utils.h"
 #include <map>
+#include "md5.h"
 using namespace std;
 
 
@@ -40,16 +41,16 @@ int main() {
 	//for (set<int>::iterator it = a.begin(); it != a.end(); ++it)
 	//	cout << *it << endl;
 	
-	map<int, int> a;
-	for (int i = 0; i < 5; i++) {
-		a.insert(pair<int, int>(i - 1, i));
-	}
+	//map<int, int> a;
+	//for (int i = 0; i < 5; i++) {
+	//	a.insert(pair<int, int>(i - 1, i));
+	//}
 
-	for (int i = 0; i < 5; i++)
-		cout << a[i - 1];
+	//for (int i = 0; i < 5; i++)
+	//	cout << a[i - 1];
 
-
-
+	/*cout << MD5("ssss").toStr() << endl;*/
+		
 
 
 

@@ -146,7 +146,10 @@
     <ClCompile Include="CSendMail.cpp" />
     <ClCompile Include="Dao.cpp" />
     <ClCompile Include="md5.cpp" />
-    <ClCompile Include="test.cpp" />
+    <ClCompile Include="test-md5.cpp" />
+    <ClCompile Include="test.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="test_mail.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>

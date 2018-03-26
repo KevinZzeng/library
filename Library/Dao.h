@@ -1,5 +1,10 @@
 #pragma once
 
+/*************** notice *************
+TODO：底层提供一个返回表所有数据的接口
+
+*/
+
 /*
 每个类中加入 ID ，为了维护数据方便
 每个类写好序列化函数，反序列化函数
@@ -30,7 +35,7 @@ public:
 
 	//void inster_into(const string tableName, vector<pair<int, char *> > &v);  //废弃函数
 	//inster_into vector <value> value 是序列化的成员变量，按照顺序写入vector
-	void inster_into(const string tableName, vector<char *> &v);
+	bool inster_into(const string tableName, vector<char *> &v);
 	
 	//bool update(const string tableName, int id, vector<pair<int, char *> > &v); //废弃函数
 	//updae vector <value> value 是序列化的成员变量，按照顺序写入vector
