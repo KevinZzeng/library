@@ -26,10 +26,14 @@ bool Student::login(string numberID, string password)
 		this->money = reinterpret_cast<int> (student[5]);
 		//获取书籍过期信息，重置money
 		vector<BorrowInfo> vb = BorrowInfo::getInfoByNumberID(numberID, EXCEED);
-		//获取时间比较？时间格式？
-
-
-
+		//获取时间比较
+		vector<BorrowInfo>::iterator it;
+		for (it = vb.begin(); it < vb.end(); it++) {
+			int exceedDays = Utils::compareTime(Utils::getNowTime(), it->getR_date());
+			this->money += exceedDays;
+		}
+		//更新信息
+		save();
 		strcpy(this->email, student[6]);
 		this->status = (status_class)reinterpret_cast<int> (student[8]);
 

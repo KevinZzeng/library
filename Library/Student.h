@@ -6,6 +6,7 @@
 #include "Dao.h"
 #include "md5.h"
 #include "BorrowInfo.h"
+#include "Utils.h"
 using namespace std;
 enum status_class {
 	NORMAL, LOCK
