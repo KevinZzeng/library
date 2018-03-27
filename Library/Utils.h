@@ -49,7 +49,7 @@ template<typename T>
 inline void Utils::freeSpace(T * ptr)
 {
 	if (ptr) {
-		delete ptr;
+		delete[] ptr;
 		ptr = NULL;
 	}
 }

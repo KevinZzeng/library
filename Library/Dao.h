@@ -35,11 +35,9 @@ public:
 
 	Dao();
 
-	//void inster_into(const string tableName, vector<pair<int, char *> > &v);  //废弃函数
 	//inster_into vector <value> value 是序列化的成员变量，按照顺序写入vector
 	bool inster_into(const string tableName, vector<char *> &v);
 	
-	//bool update(const string tableName, int id, vector<pair<int, char *> > &v); //废弃函数
 	//updae vector <value> value 是序列化的成员变量，按照顺序写入vector
 	bool update(const string tableName, int id, vector<char *> &v);
 

@@ -145,8 +145,14 @@
   <ItemGroup>
     <ClCompile Include="CSendMail.cpp" />
     <ClCompile Include="Dao.cpp" />
+    <ClCompile Include="Data.cpp" />
+    <ClCompile Include="File.cpp" />
     <ClCompile Include="md5.cpp" />
-    <ClCompile Include="test-md5.cpp" />
+    <ClCompile Include="Table.cpp" />
+    <ClCompile Include="test-database.cpp" />
+    <ClCompile Include="test-md5.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="test.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -165,6 +171,7 @@
     <ClInclude Include="Dao.h" />
     <ClInclude Include="Data.h" />
     <ClInclude Include="DaoDemo.h" />
+    <ClInclude Include="File.h" />
     <ClInclude Include="LogInfo.h" />
     <ClInclude Include="md5.h" />
     <ClInclude Include="Operation.h" />

@@ -116,8 +116,7 @@ bool Dao::delete_from(const string tableName, int id)
 		return false;
 
 	try {
-		_table.del(id);
-		return true;
+		return _table.del(id);
 	}
 	catch (exception &e) {
 		cout << "DataBase Operate Error:" << e.what() << endl;
