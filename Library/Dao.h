@@ -29,6 +29,8 @@ private :
 	//根据用户调用的数据库名称获取数据库，如果 _tableName 和调用一样不则重新获取，有个问题？不重新获取数据库的话，数据更新了可以查到新的数据嘛？
 	void init(string tableName);
 
+	//转换数据库原始 char *  到对象
+	map<int, char *> transCharPtr2Map(string tableName, int id, char * row);
 public:
 
 	Dao();

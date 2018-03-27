@@ -22,6 +22,10 @@ public:
 	//集合求交集,结果放在A中
 	static void setIntersection(set<int> &a, const set<int> &b);
 
+	//释放new空间
+	template<typename T>
+	static void freeSpace(T * ptr);
+
 };
 
 template<typename T>
@@ -39,4 +43,13 @@ inline T Utils::fromString(const string & str)
 	T v;
 	is >> v;	
 	return v;
+}
+
+template<typename T>
+inline void Utils::freeSpace(T * ptr)
+{
+	if (ptr) {
+		delete ptr;
+		ptr = NULL;
+	}
 }
