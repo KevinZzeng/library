@@ -23,7 +23,7 @@ public:
 	//序列化函数，处理 inster_into update 函数参数
 	vector<char *> serialize() {
 		vector<char *> r;
-		r.push_back(reinterpret_cast<char *>(this->b));
+		r.push_back(reinterpret_cast<char *>(&this->b));
 		r.push_back(c);
 		return r;
 	}

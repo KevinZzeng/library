@@ -53,8 +53,11 @@ bool Dao::inster_into(const string tableName, vector<char*> &v)
 	init(tableName);
 	//从数据库底层拿到 length[] & colums 也可以 
 	//计算宽度，用于拼接 char* 字符串
+	//Table tab = Data::get_table("daodemo");
 
 	int rowLen = 0;
+
+
 	vector<int> t_info = _table.get_column_length();
 	
 

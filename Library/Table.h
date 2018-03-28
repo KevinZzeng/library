@@ -22,10 +22,8 @@ public:
 	Table(string _name, int _num, int _len[], bool _ifsearch[]);     ///新建表(表名，表的列数，格式描述，是否课检索)
 	
 	Table(string _name);  ///打开表
-	
-	Table();
 
-	~Table();
+	Table();
 	
 	int add(char* data);	///传入的信息
 	
@@ -54,7 +52,7 @@ protected:
 private:
 	string name;
 	int num;         ///列数
-	int* len;           ///每一列的宽度
-	bool* if_search;    ///是否支持索引
+	vector<int> len;           ///每一列的宽度
+	vector<bool> if_search;    ///是否支持索引
 	File table;
 };

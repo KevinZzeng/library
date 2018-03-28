@@ -1,15 +1,13 @@
 #include "Table.h"
-
+#include <iostream>
 Table::Table(string _name, int _num, int _len[], bool _ifsearch[])
 {
 	name = _name;
 	num = _num;
-	len = new int(num);
-	if_search = new bool[num];
 	for (int i = 0; i < num; i++)
 	{
-		len[i] = _len[i];
-		if_search[i] = _ifsearch[i];
+		len.push_back(_len[i]);
+		if_search.push_back(_ifsearch[i]);
 	}
 
 	ofstream info(name.c_str());
@@ -26,14 +24,21 @@ Table::Table(string _name)
 	name = _name;
 	ifstream info(name.c_str());
 	char* p;
+
 	p = (char*)&num;
 	info.read(p, 4);
-	len = new int[num];
-	if_search = new bool[num];
-	p = (char*)len;
+	int *_len = new int[num];
+	bool* _if_search = new bool[num];
+	p = (char*)_len;
 	info.read(p, 4 * num);
-	p = (char*)if_search;
+	p = (char*)_if_search;
 	info.read(p, num);
+	for (int i = 0; i < num; i++) {
+		len.push_back(_len[i]);
+		if_search.push_back(_if_search[i]);
+	}
+	delete[] _len;
+	delete[] _if_search;
 	table.open(name + ".pag");
 }
 
@@ -41,11 +46,7 @@ Table::Table()
 {
 }
 
-Table::~Table()
-{
-	delete[] len;
-	delete[] if_search;
-}
+
 
 int Table::add(char * data)
 {
@@ -156,16 +157,26 @@ int Table::get_len_sum()
 char * Table::order()
 {
 	char *head, *p, *q;
+	int *_len;
+	bool* _if_search;
 	head = new char[4 + 5 * num];
 	p = head;
 	q = (char*)&num;
 	for (int i = 0; i < 4; i++, p++)
 		*p = q[i];
-	q = (char*)len;
+	_len = new int[num];
+	_if_search = new bool[num];
+	for (int i = 0; i < num; i++) {
+		_len[i] = len[i];
+		_if_search[i] = if_search[i];
+	}
+	q = (char*)_len;
 	for (int i = 0, n = num * 4; i < n; i++, p++)
 		*p = q[i];
-	q = (char*)if_search;
+	q = (char*)_if_search;
 	for (int i = 0; i < num; i++, p++)
 		*p = q[i];
+	delete[] _len;
+	delete[] _if_search;
 	return head;
 }
