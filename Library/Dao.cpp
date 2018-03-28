@@ -5,10 +5,10 @@
 #include <iostream>
 void Dao::init(string tableName)
 {
-	if (_tableName.compare(tableName))
+	if (!_tableName.compare(tableName))
 		return;
 	this->_tableName = tableName;
-	this->_table = Data::get_table(this->_tableName);
+	this->_table = Data::get_table(tableName);
 }
 
 map<int, char*> Dao::transCharPtr2Map(string tableName, int id, char * row)
@@ -56,8 +56,11 @@ bool Dao::inster_into(const string tableName, vector<char*> &v)
 
 	int rowLen = 0;
 	vector<int> t_info = _table.get_column_length();
-	for (vector<int>::iterator it = t_info.begin(); it != t_info.end(); ++it)
+	
+
+	for (vector<int>::iterator it = t_info.begin(); it != t_info.end(); ++it) {
 		rowLen += *it;
+	}
 
 	char *res = new char[rowLen];
 	int step = 0, i = 0;
