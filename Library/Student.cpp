@@ -97,7 +97,7 @@ vector<Book> Student::getInterestingBooks()
 	for (iter = vb.begin(); iter != vb.end(); iter++) 
 	{
 		//Æ´½Óvector
-		vector<Book> interestingBook_temp = Book::getBooksByCategory(Book((*iter).getISBN_ID()).getCategory());
+		vector<Book> interestingBook_temp = Book::getBooksByCategory((Book::getBookByISBN((*iter).getISBN_ID())).getCategory());
 		interestingBook.insert(interestingBook.end(), interestingBook_temp.begin(), interestingBook_temp.end());
 	}
 	return interestingBook;

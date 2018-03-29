@@ -144,6 +144,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Admin.cpp" />
+    <ClCompile Include="Book.cpp" />
+    <ClCompile Include="BookCategory.cpp" />
+    <ClCompile Include="BorrowInfo.cpp" />
+    <ClCompile Include="CollectBook.cpp" />
     <ClCompile Include="CSendMail.cpp" />
     <ClCompile Include="Dao.cpp" />
     <ClCompile Include="md5.cpp" />
