@@ -48,6 +48,9 @@
     <ClCompile Include="test-database.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="tsetss.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Admin.h">
@@ -104,5 +107,8 @@
     <ClInclude Include="File.h">
       <Filter>头文件</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

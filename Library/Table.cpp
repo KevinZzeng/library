@@ -60,7 +60,7 @@ set<int> Table::find(int colum, char * key)
 	int n = table.length();
 	int k = 0;
 	char *a = new char[len[colum]];
-	for (int i = 0; i < colum; i++, k += len[i]);
+	for (int i = 0; i < colum;  k += len[i], i++);
 	for (int i = 0; i < n; i++)
 	{
 		if (!table.exist(i))
@@ -99,7 +99,7 @@ bool Table::change(int id, int column, char * attr)
 	if (table.exist(id) && column < num)
 	{
 		int k = 0;
-		for (int i = 0, k = 0; i < column; i++, k += len[i]);
+		for (int i = 0; i < column; k += len[i], i++);
 		table.write(attr, id, k, len[column]);
 		return true;
 	}

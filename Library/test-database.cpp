@@ -2,10 +2,6 @@
 #include <iostream>
 #include <cstring>
 #include "DaoDemo.h"
-/****************测试备注*******************
-1. find 方法，字符串找不到
-2. update 方法，修改失败，不管修改那一列，最终结果都是修改第一列
-*/
 
 
 void print_obj(vector<map<int, char*>> &res) {
@@ -35,15 +31,18 @@ int main()
 
 
 	//增加数据
-	/*
-	DaoDemo d;
-	char q[20] = { "hhhhh" };
-	d.b = 4;
-	d.d = 4;
-	memcpy(d.c, q, 20);
-	d.id = -1;
-	dao.insert_into("daodemo",d.serialize());
-	*/
+	
+	//DaoDemo d;
+	//char q[21] = { "hhhhhhhhhhhhhhhhhhhh" };
+	//for (int i = 0; i < 20; i++)
+	//	printf("%d", q[i]);
+	//printf("\n");
+	//d.b = 8;
+	//d.d = 4;
+	//memcpy(d.c, q, 20);
+	//d.id = -1;
+	//dao.insert_into("daodemo",d.serialize());
+	
 
 
 
@@ -55,14 +54,10 @@ int main()
 	////显示出来
 	//print_obj(res);
 	
-	
-
-
-
 
 	//根据条件获取
 	//DaoDemo dd;
-	vector<pair<int, char*> > select_con;
+	//vector<pair<int, char*> > select_con;
 	
 	//int 查找方法
 	//int se_b = 999;
@@ -72,7 +67,11 @@ int main()
 	//print_obj(res);
 
 	//字符串查找方法
-	//char * str = "hhhhh";
+	//char  str[20] = { "hhhhh" };
+	//for (int i = 0; i < 20; i++)
+	//{
+	//	printf("%d", str[i]);
+	//}
 	//select_con.push_back(make_pair(2, str));
 	//vector<map<int, char*>> res = dao.select("daodemo", select_con);
 	//cout << "符合条件数据条数： " << res.size() << endl;
@@ -129,11 +128,10 @@ int main()
 	//dd.deserialize(mm);
 	//cout << "更新前数据：" << endl;
 	//dd.print();
-	//dd.d = 4;
-	///*char ss[20] = "sss";
+	//dd.d = 798;
+	//dd.b =66;
+	//char ss[20] = "susususus";
 	//memcpy(dd.c, ss, 20);
-	//Table tab = Data::get_table("daodemo");
-	//cout << "!!!!!!!! " << tab.change(dd.id, 1, dd.c) << endl;*/
 
 	//cout << "更新成功？ " << (dao.update("daodemo", dd.id, dd.serialize()) ? "成功" : "失败") << endl;
 	//dd.deserialize(dao.getById("daodemo",dd.id));
