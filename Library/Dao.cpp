@@ -37,8 +37,10 @@ map<int, char*> Dao::transCharPtr2Map(string tableName, int id, char * row)
 	}
 
 	//插入ID key：-1  value：ID值
-	char *t = new char[4];
-	res.insert(pair<int, char *>(-1, reinterpret_cast<char *>(&id)));
+	char * tmp = new char[4];
+	memcpy(tmp, &id, 4);
+	res.insert(pair<int, char*>(-1, tmp));
+	//res.insert(pair<int, char *>(-1, reinterpret_cast<char *>(&id)));
 
 	return res;
 }
@@ -48,7 +50,7 @@ Dao::Dao()
 	this->_tableName = "";
 }
 
-bool Dao::inster_into(const string tableName, vector<char*> &v)
+bool Dao::insert_into(const string tableName, vector<char*> &v)
 {
 	init(tableName);
 	//从数据库底层拿到 length[] & colums 也可以 
@@ -74,7 +76,7 @@ bool Dao::inster_into(const string tableName, vector<char*> &v)
 
 	//存入数据库
 	try {
-		_table.add(res);
+		cout<<"插入成功： ID:" << _table.add(res)<<endl;
 		Utils::freeSpace(res);
 		return true;
 	}
@@ -94,19 +96,26 @@ bool Dao::update(const string tableName, int id, vector<char*> &v)
 
 	//获取原来对象属性，确定哪个属性发生了变化，然后进行update
 	vector<int> submitColumn;
+	vector<int> column_len = _table.get_column_length();
+	int i=0;
 	try {
 		map<int, char *> obj = this->getById(tableName, id);
 		for (map<int, char *>::iterator it = obj.begin(); it != obj.end(); ++it) {
-			if (strcmp(it->second, v[it->first]) != 0) {
+			if (it->first == -1)
+				continue;
+			if (memcmp(it->second, v[it->first], column_len[i++]) != 0) {
+				//if (strcmp(it->second, v[it->first]) != 0) {
 				submitColumn.push_back(it->first);
 			}
 		}
 
+		bool submitFlag = true;
 		//逐项提交到数据库
-		for (vector<int>::iterator it = submitColumn.begin(); it != submitColumn.end(); ++it) {
-			_table.change(id, *it, v[*it]);
+		for (vector<int>::iterator it = submitColumn.begin(); submitFlag && it != submitColumn.end() ; ++it) {
+			if (!_table.change(id, *it, v[*it]))
+				submitFlag = false;
 		}
-		return true;
+		return submitFlag;
 	}
 	catch (exception &e) {
 		cout << "DataBase Operate Error:" << e.what() << endl;
@@ -132,6 +141,7 @@ bool Dao::delete_from(const string tableName, int id)
 
 map<int, char *> Dao::getById(const string tableName, int id)
 {
+	init(tableName);
 	map<int, char *> res;
 	if (id == -1)
 		return res;
