@@ -177,13 +177,13 @@ vector<map<int, char*>> Dao::select(const string tableName, vector<pair<int, cha
 			}
 		}
 		else {
-			set<int> t1 = _table.find(v[0].first, v[0].second);
+			vector<int> t1 = _table.find(v[0].first, v[0].second);
 			for (int i = 1; i < v.size(); i++) {
-				Utils::setIntersection(t1, _table.find(v[i].first, v[i].second));
+				Utils::getIntersection(t1, _table.find(v[i].first, v[i].second));
 			}
 
 
-			for (set<int>::iterator it = t1.begin(); it != t1.end(); ++it) {
+			for (vector<int>::iterator it = t1.begin(); it != t1.end(); ++it) {
 				res.push_back(this->getById(tableName, *it));
 			}
 		}

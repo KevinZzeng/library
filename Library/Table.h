@@ -27,7 +27,7 @@ public:
 	
 	int add(char* data);	///传入的信息
 	
-	set<int> find(int colum, char* key);///根据第几关键字,获取所有满足条件的行的id
+	vector<int> find(int colum, char* key);///根据第几关键字,获取所有满足条件的行的id
 
 
 	char* get(int id); /// 根据行id获取对应行,,此处有待商议,易导致内存损失，不推荐使用 务必delete

@@ -1,5 +1,6 @@
 #include "Utils.h"
 #include <ctime>
+#include <algorithm>
 string Utils::getNowTime()
 {
 	struct tm t;   //tmΩ·ππ÷∏’Î
@@ -11,12 +12,13 @@ string Utils::getNowTime()
 	return tmp;
 }
 
-void Utils::setIntersection(set<int>& a, const set<int>& b)
+void Utils::getIntersection(vector <int>& a, vector<int>& b)
 {
-	set<int> res;
-	set<int>::iterator it = a.begin();
+	vector<int> res;
+	sort(b.begin(), b.end());
+	vector<int>::iterator it = a.begin();
 	while (it != a.end()) {
-		if (b.find(*it) != b.end()) res.insert(*it);
+		if (binary_search(b.begin(), b.end(), *it)) res.push_back(*it);
 		it++;
 	}
 	a = res;

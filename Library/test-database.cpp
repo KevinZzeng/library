@@ -15,7 +15,6 @@ void print_obj(vector<map<int, char*>> &res) {
 using namespace std;
 int main()
 {
-	//d.print();
 
 	Dao  dao;
 
@@ -33,7 +32,7 @@ int main()
 	//增加数据
 	
 	//DaoDemo d;
-	//char q[21] = { "hhhhhhhhhhhhhhhhhhhh" };
+	//char q[20] = { "hhhhhhhhhhhhhhhhhhh" };
 	//for (int i = 0; i < 20; i++)
 	//	printf("%d", q[i]);
 	//printf("\n");
@@ -57,7 +56,7 @@ int main()
 
 	//根据条件获取
 	//DaoDemo dd;
-	//vector<pair<int, char*> > select_con;
+	vector<pair<int, char*> > select_con;
 	
 	//int 查找方法
 	//int se_b = 999;
@@ -78,20 +77,13 @@ int main()
 	//print_obj(res);
 
 	//int 复合查询
-	//int se_b = 4;
-	//int se_d = 1;
+	//int se_b = 8;
+	//int se_d = 5;
 	//select_con.push_back(make_pair(0, reinterpret_cast<char *>(&se_b)));
 	//select_con.push_back(make_pair(1, reinterpret_cast<char *>(&se_d)));
 	//vector<map<int, char*>> res = dao.select("daodemo", select_con);
 	//cout << "符合条件数据条数： " << res.size() << endl;
 	//print_obj(res);
-
-
-	//这是个调用底层接口，还是不能查询到
-	//Table tab = Data::get_table("daodemo");
-	//cout << tab.find(1, str).size() << endl;;
-	
-
 
 
 	//删除一条数据
@@ -123,13 +115,13 @@ int main()
 	//}
 
 	//测试修改功能
-	//map<int, char*> mm = dao.getById("daodemo", 0);
+	//map<int, char*> mm = dao.getById("daodemo", 5);
 	//DaoDemo dd;
 	//dd.deserialize(mm);
 	//cout << "更新前数据：" << endl;
 	//dd.print();
-	//dd.d = 798;
-	//dd.b =66;
+	//dd.d = 5;
+	//dd.b =8;
 	//char ss[20] = "susususus";
 	//memcpy(dd.c, ss, 20);
 
@@ -137,26 +129,6 @@ int main()
 	//dd.deserialize(dao.getById("daodemo",dd.id));
 	//cout << "更新后数据：" << endl;
 	//dd.print();
-
-
-
-	//更新 char * 字段
-	/*vector<pair<int, char*> > select_con;
-	int se_b = 1769239923;
-	select_con.push_back(make_pair(0, reinterpret_cast<char *>(&se_b)));
-	vector<map<int, char*>> res = dao.select("daodemo", select_con);
-	DaoDemo dd;
-	if (res.size() > 0) {
-		dd.deserialize(res[0]);
-		cout << "更新前数据：" << endl;
-		dd.print();
-		char *aaa = "aaa";
-		memcpy(dd.c, aaa, 20);
-		cout << "更新成功？ " << (dao.update("daodemo", dd.id, dd.serialize()) ? "成功" : "失败") << endl;
-		dd.deserialize(dao.getById("daodemo", dd.id));
-		cout << "更新后数据：" << endl;
-		dd.print();
-	}*/
 
 	return 0;
 }

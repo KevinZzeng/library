@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <sstream>
-#include <set>
+#include <vector>
 using namespace std;
 class Utils {
 
@@ -20,7 +20,7 @@ public:
 
 
 	//集合求交集,结果放在A中
-	static void setIntersection(set<int> &a, const set<int> &b);
+	static void getIntersection(vector<int> &a, vector<int> &b);
 
 	//释放new空间
 	template<typename T>

@@ -54,9 +54,9 @@ int Table::add(char * data)
 	return id;
 }
 
-set<int> Table::find(int colum, char * key)
+vector<int> Table::find(int colum, char * key)
 {
-	set<int> list_id;
+	vector<int> list_id;
 	int n = table.length();
 	int k = 0;
 	char *a = new char[len[colum]];
@@ -71,7 +71,7 @@ set<int> Table::find(int colum, char * key)
 			if (a[j] != key[j])
 				break;
 		if (j == len[colum])
-			list_id.insert(i);
+			list_id.push_back(i);
 	}
 	delete[] a;
 	return list_id;
