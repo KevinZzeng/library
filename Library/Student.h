@@ -9,7 +9,7 @@
 #include "Utils.h"
 using namespace std;
 enum status_class {
-	NORMAL, LOCK
+	Student_NORMAL, Student_LOCK
 };
 //每次登陆成功后应该计算用户的欠费信息，更新借阅历史的信息的状态
 class Student {

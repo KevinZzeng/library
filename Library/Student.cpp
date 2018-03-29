@@ -25,7 +25,7 @@ bool Student::login(string numberID, string password)
 		strcpy(this->photo, student[4]);
 		this->money = reinterpret_cast<int> (student[5]);
 		//获取书籍过期信息，重置money
-		vector<BorrowInfo> vb = BorrowInfo::getInfoByNumberID(numberID, EXCEED);
+		vector<BorrowInfo> vb = BorrowInfo::getInfoByNumberID(numberID, Book_EXCEED);
 		//获取时间比较
 		vector<BorrowInfo>::iterator it;
 		for (it = vb.begin(); it < vb.end(); it++) {
@@ -106,7 +106,7 @@ vector<Book> Student::getInterestingBooks()
 vector<string> Student::getMessages()
 {
 	//查询图书情况
-	vector<BorrowInfo> vb = BorrowInfo::getInfoByNumberID(numberID, EXCEED);
+	vector<BorrowInfo> vb = BorrowInfo::getInfoByNumberID(numberID, Book_EXCEED);
 	vector<string> result;
 	//返回到期图书
 	if (!vb.empty()) 

@@ -40,11 +40,11 @@ bool Admin::login(string numberID, string password)
 bool Admin::save()
 {
 	Dao dao;
-	vector<pair<int, char *> > insertInfo;
+	vector<char *> insertInfo;
 	//构造参数
-	insertInfo.push_back(make_pair(0, numberID));
-	insertInfo.push_back(make_pair(1, password));
-	insertInfo.push_back(make_pair(2, email));
+	insertInfo.push_back(numberID);
+	insertInfo.push_back(password);
+	insertInfo.push_back(email);
 
 	//存入数据库
 	bool ifSuccess = true;

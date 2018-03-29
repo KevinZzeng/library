@@ -4,7 +4,7 @@
 #include "Dao.h"
 using namespace std;
 enum Book_status {
-	NORMAL, DELAY, DONE, EXCEED
+	Book_NORMAL, Book_DELAY, Book_DONE, Book_EXCEED
 };
 
 class BorrowInfo {
