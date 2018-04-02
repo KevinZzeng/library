@@ -73,7 +73,21 @@ vector<Student> Student::getStudent(string name, string numberID, int major)
 	for (it = studentInfo3.begin(); it != studentInfo3.end(); it++) {
 		studentInfo1.push_back((*it));
 	}
-	return ;
+	vector<Student> studentList;
+	for (it = studentInfo1.begin(); it != studentInfo1.end(); it++) {
+		Student s;
+		s.setId(reinterpret_cast<int>((*it)[-1]));
+		s.setNumberID(string((*it)[0]));
+		s.setPassword(string((*it)[1]));
+		s.setName(string((*it)[2]));
+		s.setMajor(reinterpret_cast<int>((*it)[3]));
+		s.setPhoto(string((*it)[4]));
+		s.setMoney(reinterpret_cast<int>((*it)[5]));
+		s.setEmail(string((*it)[6]));
+		s.setStatus((status_class)reinterpret_cast<int>((*it)[7]));
+		studentList.push_back(s);
+	}
+	return studentList;
 }
 
 bool Student::save()
