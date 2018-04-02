@@ -90,7 +90,7 @@ bool BorrowInfo::save()
 		vector<map<int, char *>> data = d.select("borrowInfo", s);
 		if (!(data[0])[8])//如果该本书的剩余数量<=0，说明不能再借了，直接返回false
 			return false;
-		if (d.inster_into("borrowInfor", v))//添加成功则返回true
+		if (d.insert_into("borrowInfor", v))//添加成功则返回true
 			return true;
 	}
 	else {//否则则是update这个分类
@@ -135,7 +135,6 @@ vector<BorrowInfo> BorrowInfo::getNowInfoByNumberID(string numberID)
 	s.pop_back();
 
 	s.push_back(make_pair(4, reinterpret_cast<char*>(1)));//查询条件status为 DELAY
-	vector<map<int, char *>> data = d.select("borrowInfo", s);
 	for (vector<map<int, char *>>::iterator it = data.begin(); it != data.end(); it++) {
 		BorrowInfo borrowInfo(reinterpret_cast<int>((*it)[-1]), (*it)[0], (*it)[1], (*it)[2], (*it)[3], (Book_status)reinterpret_cast<int>((*it)[4]));
 		list.push_back(borrowInfo);
@@ -143,7 +142,7 @@ vector<BorrowInfo> BorrowInfo::getNowInfoByNumberID(string numberID)
 	s.pop_back();
 
 	s.push_back(make_pair(4, reinterpret_cast<char*>(3)));//查询条件status为EXCEED
-	vector<map<int, char *>> data = d.select("borrowInfo", s);
+	data = d.select("borrowInfo", s);
 	for (vector<map<int, char *>>::iterator it = data.begin(); it != data.end(); it++) {
 		BorrowInfo borrowInfo(reinterpret_cast<int>((*it)[-1]), (*it)[0], (*it)[1], (*it)[2], (*it)[3], (Book_status)reinterpret_cast<int>((*it)[4]));
 		list.push_back(borrowInfo);

@@ -40,7 +40,7 @@ bool BookCategory::save()
 	vector<map<int, char *>> data = d.select("book", s);//依据category获取这个分类名字的id，判断这个分类名字存不存在
 	if (!data.empty()) {//如果这个分类不存在，才可以增加或者修改成这个分类
 		if (this->ID == -1) {//id为-1说明是增加这个分类
-			if (d.inster_into("bookCategory", v))//添加成功则返回true
+			if (d.insert_into("bookCategory", v))//添加成功则返回true
 				return true;
 		}
 		else {//否则则是update这个分类

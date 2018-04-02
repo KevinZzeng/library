@@ -53,7 +53,7 @@ bool CollectBook::save()
 		vector<map<int, char *>> data = d.select("collectBook", s);
 		if (!data.empty())//如果该本书已经被预约了，说明不能再预约了，直接返回false
 			return false;
-		if (d.inster_into("collectBook", v))//添加成功则返回true
+		if (d.insert_into("collectBook", v))//添加成功则返回true
 			return true;
 	}
 	else {//否则则是update这条预约记录

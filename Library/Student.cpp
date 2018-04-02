@@ -62,7 +62,7 @@ bool Student::save()
 	try {
 		//增加
 		if (id == -1) {
-			dao.inster_into("users", insertInfo);
+			dao.insert_into("users", insertInfo);
 		}
 		//更新
 		else {

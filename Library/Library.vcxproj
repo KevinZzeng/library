@@ -154,20 +154,10 @@
     <ClCompile Include="File.cpp" />
     <ClCompile Include="md5.cpp" />
     <ClCompile Include="Table.cpp" />
-    <ClCompile Include="test-database.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="test-md5.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="Operation.cpp" />
     <ClCompile Include="Order.cpp" />
     <ClCompile Include="Student.cpp" />
     <ClCompile Include="StudentMajor.cpp" />
-    <ClCompile Include="test.cpp" />
-    <ClCompile Include="test_mail.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="tsetss.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>

@@ -21,16 +21,10 @@
     <ClCompile Include="md5.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="test_mail.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Utils.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Dao.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="test-md5.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Table.cpp">
@@ -40,9 +34,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="File.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="test-database.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="tsetss.cpp">

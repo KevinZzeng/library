@@ -52,7 +52,7 @@ bool Operation::save(Admin & ad)
 	bool ifSuccess = true;
 	try {
 		if (id == -1) {
-			dao.inster_into("operation", v);
+			dao.insert_into("operation", v);
 		}
 		else {
 			dao.update("operation", id, v);

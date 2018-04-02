@@ -41,7 +41,7 @@ bool StudentMajor::save()
 	bool ifSuccess = true;
 	try {
 		if (id == -1) {
-			dao.inster_into("studentMajor", v);
+			dao.insert_into("studentMajor", v);
 		}
 		else {
 			dao.update("studentMajor", id, v);

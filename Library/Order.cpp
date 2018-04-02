@@ -74,7 +74,7 @@ bool Order::save()
 	bool ifSuccess = true;
 	try {
 		if (id == -1) {
-			dao.inster_into("order", v);
+			dao.insert_into("order", v);
 		}
 		else {
 			dao.update("order", id, v);

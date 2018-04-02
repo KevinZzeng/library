@@ -49,7 +49,7 @@ bool Admin::save()
 	//´æÈëÊı¾İ¿â
 	bool ifSuccess = true;
 	try {
-		dao.inster_into("administrator", insertInfo);
+		dao.insert_into("administrator", insertInfo);
 	}
 	catch (exception e) {
 		ifSuccess = false;

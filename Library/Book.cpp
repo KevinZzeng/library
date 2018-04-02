@@ -138,7 +138,7 @@ bool Book::save()
 		v.push_back(reinterpret_cast<char*>(amount));
 		v.push_back(reinterpret_cast<char*>(left));
 		if (this->ID == -1) {//id为1 意思是新增这本书
-			if (d.inster_into("book", v))
+			if (d.insert_into("book", v))
 				return true;
 		}
 		else {
