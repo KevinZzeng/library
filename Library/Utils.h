@@ -15,9 +15,10 @@ public:
 	static T fromString(const string &str);
 
 
-	//时间操作 yyyy-MM-dd xx:xx:xx
+	//时间操作 yyyy-MM-dd
 	static string getNowTime();
-
+	static string addTime(string time, int day);
+	static int compareTime(string nowtime, string targetTime);
 
 	//集合求交集,结果放在A中
 	static void getIntersection(vector<int> &a, vector<int> &b);
