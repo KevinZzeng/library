@@ -44,6 +44,38 @@ bool Student::login(string numberID, string password)
 	}
 }
 
+vector<Student> Student::getStudent(string name, string numberID, int major)
+{
+	Dao dao;
+	char names[50];
+	int majors;
+	char numberIDs[13];
+	vector<pair<int, char*> > v;
+	vector<map<int, char *>> studentInfo1, studentInfo2, studentInfo3;
+	if (name != "") {
+		strcpy(names, name.c_str());
+		v.push_back(make_pair(2, names));
+		studentInfo1 = dao.select("users", v);
+	}
+	if (numberID != "") {
+		strcpy(numberIDs, numberID.c_str());
+		v.push_back(make_pair(0, numberIDs));
+		studentInfo2 = dao.select("users", v);
+	}
+	if (major != -1) {
+		v.push_back(make_pair(3, reinterpret_cast<char*>(majors)));
+		studentInfo3 = dao.select("users", v);
+	}
+	vector<map<int, char *>>::iterator it;
+	for (it = studentInfo2.begin(); it != studentInfo2.end(); it++) {
+		studentInfo1.push_back((*it));
+	}
+	for (it = studentInfo3.begin(); it != studentInfo3.end(); it++) {
+		studentInfo1.push_back((*it));
+	}
+	return ;
+}
+
 bool Student::save()
 {
 	Dao dao;

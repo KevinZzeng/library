@@ -46,6 +46,8 @@ public:
 	status_class getStatus();
 	//login success 应该填充其他private 值，方便使用
 	bool login(string numberID, string password);
+	//获取学生信息
+	static vector<Student> getStudent(string name=, string numberID, int major);
 	//修改个人信息，操作数据库
 	bool save();
 	bool destory();
