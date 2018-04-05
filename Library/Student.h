@@ -49,7 +49,7 @@ public:
 	bool login(string numberID, string password);
 	//获取学生信息，不需要参数则填入""或者-1
 	static vector<Student> getStudent(string name, string numberID, int major);
-	//修改个人信息，操作数据库
+	//修改个人信息，操作数据库，已存在用户save返回false
 	bool save();
 	bool destory();
 	vector<Book> getInterestingBooks();

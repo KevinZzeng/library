@@ -22,13 +22,17 @@ int StudentMajor::getId()
 
 int StudentMajor::getIDByMajor(string major)
 {
-	strcpy(this->major, major.c_str());
+	char majors[50];
+	strcpy(majors, major.c_str());
 	Dao dao;
 	vector<pair<int, char*> > v;
-	v.push_back(make_pair(0, this->major));
+	v.push_back(make_pair(0, majors));
 	//查询major对应的id
 	vector<map<int, char *>> result = dao.select("studentMajor", v);
-	id = reinterpret_cast<int>(result[0][-1]);
+	int id = -1;
+	if (!result.empty()) {
+		id = *(reinterpret_cast<int*>(result[0][-1]));
+	}
 	return id;
 }
 
@@ -38,18 +42,25 @@ bool StudentMajor::save()
 	vector<char*> v;
 	//构造插入数据
 	v.push_back(major);
-	bool ifSuccess = true;
-	try {
-		if (id == -1) {
-			dao.insert_into("studentMajor", v);
+	//-1表示不存在
+	int ifExist = StudentMajor::getIDByMajor(major);
+	bool ifSuccess = false;
+	if (ifExist == -1) {
+		try {
+			if (id == -1) {
+				dao.insert_into("studentMajor", v);
+				ifSuccess = true;
+			}
+			else {
+				dao.update("studentMajor", id, v);
+				ifSuccess = true;
+			}
 		}
-		else {
-			dao.update("studentMajor", id, v);
+		catch (exception e) {
+			ifSuccess = false;
 		}
 	}
-	catch(exception e){
-		ifSuccess = false;
-	}
+	
 	return 	ifSuccess;
 }
 

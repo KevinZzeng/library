@@ -20,10 +20,11 @@ bool Student::login(string numberID, string password)
 	if (!studentInfo.empty()) {
 		map<int, char*> student = studentInfo[0];
 		//填充对应信息
+		this->id = *(reinterpret_cast<int*>(student[-1]));
 		strcpy(this->name, student[2]);
-		this->major = reinterpret_cast<int> (student[3]);
+		this->major = *(reinterpret_cast<int*> (student[3]));
 		strcpy(this->photo, student[4]);
-		this->money = reinterpret_cast<int> (student[5]);
+		this->money = *(reinterpret_cast<int*> (student[5]));
 		//获取书籍过期信息，重置money
 		vector<BorrowInfo> vb = BorrowInfo::getInfoByNumberID(numberID, Book_EXCEED);
 		//获取时间比较

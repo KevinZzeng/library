@@ -22,7 +22,7 @@ public:
 	//设置日期
 	void setDate(string date);
 	string getDate();
-	bool save(Admin &ad);
+	bool save();
 	//获取所有操作，返回对象地址（记得delete）
 	static vector<Operation*> getAllOperaions();
 };

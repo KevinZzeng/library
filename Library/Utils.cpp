@@ -26,16 +26,16 @@ bool correctTime(int y, int m, int d) {
 	if (d > 31 || m > 12) {
 		return false;
 	}
-	else if(d == 31 && (m == 1 || m == 3 || m == 5 || m == 7 || m == 8 || m == 10 || m == 12)) {
+	else if(d <= 31 && (m == 1 || m == 3 || m == 5 || m == 7 || m == 8 || m == 10 || m == 12)) {
 		return true;
 	}
-	else if (d == 30 && (m == 4 || m == 6 || m == 9 || m == 11)) {
+	else if (d <= 30 && (m == 4 || m == 6 || m == 9 || m == 11)) {
 		return true;
 	}
-	else if (d == 28 && m == 2 && !isLeap(y)) {
+	else if (d <= 28 && m == 2 && !isLeap(y)) {
 		return true;
 	}
-	else if (d == 29 && m == 2 && isLeap(y)) {
+	else if (d <= 29 && m == 2 && isLeap(y)) {
 		return true;
 	}
 	else {
@@ -57,8 +57,8 @@ string Utils::addTime(string time, int day)
 {
 	int n_y, n_m, n_d;
 	n_y = Utils::fromString<int>(time.substr(0, 4));
-	n_m = Utils::fromString<int>(time.substr(4, 6));
-	n_d = Utils::fromString<int>(time.substr(6, 8));
+	n_m = Utils::fromString<int>(time.substr(5, 6));
+	n_d = Utils::fromString<int>(time.substr(8, 9));
 	n_d += day;
 	while (!correctTime(n_y, n_m, n_d)) {
 		if (n_m > 12) {

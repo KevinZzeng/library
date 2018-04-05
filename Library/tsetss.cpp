@@ -5,24 +5,21 @@
 #include"Order.h"
 #include"Student.h"
 int main() {
-	bool flag;	
-	vector<Student> stuList = Student::getStudent("", "test", -1);
-	stuList[0].destory();
-	Student newstu(-1, "test", "stdsf", "666", 1, "55", 1, "qqcom", Student_NORMAL);
-	flag = newstu.save();
+	bool flag;
+	string date = Utils::getNowTime();
+	string deadline = Utils::addTime(date, 30);
+	Order op(-1, "admin", "test", date, deadline, BEING);
+	flag = op.save();
 	if (!flag) {
 		cout << "插入失败" << endl;
 	}
 	else {
 		cout << "插入成功！" << endl;
 	}
-	Student stu;
-	flag = stu.login("test", "stdsf");
-	if (!flag) {
-		cout << "操作失败" << endl;
-	}
-	else {
-		cout << "操作成功！" << endl;
+	vector<Order*> vp = Order::getOrdersByNumberID("test");
+	vector<Order*>::iterator it;
+	for (it = vp.begin(); it != vp.end(); it++) {
+		cout << (*it)->getNumberID() << endl;
 	}
 	return 0;
 }

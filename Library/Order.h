@@ -15,12 +15,14 @@ private:
 	status_order status;
 public:
 	Order();
-	Order(string ISBN, string numberID, string order_date, string deadline);
+	Order(int id, string ISBN, string numberID, string order_date, string deadline, status_order status);
+	void setId(int id);
+	int getId();
 	void setISBN(string ISBN);
 	string getISBN();
 	void setNumberID(string numberID);
 	string getNumberID();
-	void setorder_date(string order_date);
+	void setOrder_date(string order_date);
 	string getOrder_date();
 	void setDeadline(string deadline);
 	string getDeadline();

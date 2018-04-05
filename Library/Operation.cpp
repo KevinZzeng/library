@@ -42,7 +42,7 @@ string Operation::getDate()
 	return string(date);
 }
 
-bool Operation::save(Admin & ad)
+bool Operation::save()
 {
 	Dao dao;
 	vector<char*> v;
