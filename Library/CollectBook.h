@@ -12,8 +12,7 @@ private:
 
 public:
 	//¹¹Ôìº¯Êý
-	CollectBook();
-	CollectBook(int ID, string numberID, string ISBN);
+	CollectBook(int ID=-1, string numberID="", string ISBN="");
 	//get set
 	int getID();
 	string getNumberID();

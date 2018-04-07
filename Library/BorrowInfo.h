@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "Utils.h"
 #include <vector>
 #include "Dao.h"
 using namespace std;
@@ -17,8 +18,7 @@ private:
 	Book_status status;
 public:
 	//¹¹Ôìº¯Êý
-	BorrowInfo();
-	BorrowInfo(int ID, string numberID, string ISBN_ID, string b_date, string r_date, Book_status status);
+	BorrowInfo(int ID=-1, string numberID="", string ISBN_ID="", string b_date="", string r_date="", Book_status status= Book_NORMAL);
 	//get set
 	int getID();
 	string getNumberID();
