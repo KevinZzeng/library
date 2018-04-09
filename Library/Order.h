@@ -13,6 +13,12 @@ private:
 	char deadline[20];
 	//预约中： BEGIN  可预约： CAN  已完成:DONE
 	status_order status;
+	void init() {
+		memset(ISBN, '\0', sizeof(ISBN));
+		memset(numberID, '\0', sizeof(numberID));
+		memset(oder_date, '\0', sizeof(oder_date));
+		memset(deadline, '\0', sizeof(deadline));
+	}
 public:
 	Order();
 	Order(int id, string ISBN, string numberID, string order_date, string deadline, status_order status);

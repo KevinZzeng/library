@@ -20,7 +20,14 @@ private:
 	int category;
 	int amount;
 	int left;
-
+	void init() {
+		memset(ISBN, '\0', sizeof(ISBN));
+		memset(image, '\0', sizeof(image));
+		memset(bookName, '\0', sizeof(bookName));
+		memset(author, '\0', sizeof(author));
+		memset(press, '\0', sizeof(press));
+		memset(introduction, '\0', sizeof(introduction));
+	}
 public:
 	//¹¹Ôìº¯Êý
 	Book(int ID=-1,string ISBN="", string image="",string bookName="",string author="",string press="",string introduction="",int category=-1,int amount=-1,int left=-1);

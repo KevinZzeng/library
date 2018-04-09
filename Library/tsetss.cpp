@@ -1,4 +1,5 @@
 #include<iostream>
+#include"Student.h"
 #include "Book.h"
 #include "Utils.h"
 #include "md5.h"
@@ -7,6 +8,18 @@
 #include "bookCategory.h"
 #include "CollectBook.h"
 int main() {
+	//vector<Student> vs = Student::getStudent("", "test", -1);
+	//Student stu = vs[0];
+	//stu.setPassword("test");
+	//stu.setEmail("qq.com");
+	//stu.setStatus(Student_NORMAL);
+	//stu.save();
+
+	Student login(-1,"test8","test8","name",1,"photo",1,"email", Student_NORMAL);
+	login.save();
+	Student s;
+	s.login("test8", "test8");
+	//login.login("test", "test");
 	//CollectBook¿‡≤‚ ‘ ≥…π¶
 	/*
 	string numberID = "16020031095";
@@ -109,6 +122,6 @@ int main() {
 
 	}
 	*/
-	getchar();
+	//getchar();
 	return 0;
 }

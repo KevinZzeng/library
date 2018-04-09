@@ -1,5 +1,10 @@
 #include "StudentMajor.h"
 
+StudentMajor::StudentMajor()
+{
+	init();
+}
+
 void StudentMajor::setMajor(string major)
 {
 	strcpy(this->major, major.c_str());

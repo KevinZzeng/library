@@ -8,6 +8,11 @@ private:
 	char numberID[13];
 	char password[33];
 	char email[30];
+	void init() {
+		memset(numberID, '\0', sizeof(numberID));
+		memset(password, '\0', sizeof(password));
+		memset(email, '\0', sizeof(email));
+	}
 public:
 	Admin(string numberID, string password, string email);
 	Admin();

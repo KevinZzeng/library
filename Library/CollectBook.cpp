@@ -3,6 +3,7 @@
 
 CollectBook::CollectBook(int ID, string numberID, string ISBN)
 {
+	init();
 	this->ID = ID;
 	strcpy(this->numberID, numberID.c_str());
 	strcpy(this->ISBN, ISBN.c_str());

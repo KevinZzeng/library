@@ -16,6 +16,12 @@ private:
 	char b_date[20];
 	char r_date[20];
 	Book_status status;
+	void init() {
+		memset(numberID, '\0', sizeof(numberID));
+		memset(ISBN_ID, '\0', sizeof(ISBN_ID));
+		memset(b_date, '\0', sizeof(b_date));
+		memset(r_date, '\0', sizeof(r_date));
+	}
 public:
 	//¹¹Ôìº¯Êý
 	BorrowInfo(int ID=-1, string numberID="", string ISBN_ID="", string b_date="", string r_date="", Book_status status= Book_NORMAL);

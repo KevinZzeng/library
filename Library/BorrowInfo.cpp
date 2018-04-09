@@ -3,6 +3,7 @@
 
 BorrowInfo::BorrowInfo(int ID, string numberID, string ISBN_ID, string b_date, string r_date, Book_status status)
 {
+	init();
 	this->ID = ID;
 	strcpy(this->numberID, numberID.c_str());
 	strcpy(this->ISBN_ID, ISBN_ID.c_str());

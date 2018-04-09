@@ -2,10 +2,12 @@
 
 Order::Order()
 {
+	init();
 }
 
 Order::Order(int id, string ISBN, string numberID, string order_date, string deadline, status_order status)
 {
+	init();
 	setId(id);
 	strcpy(this->ISBN, ISBN.c_str());
 	strcpy(this->numberID, numberID.c_str());

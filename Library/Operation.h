@@ -10,6 +10,11 @@ private:
 	char numberID[13];
 	char operation[200];
 	char date[20];
+	void init() {
+		memset(numberID, '\0', sizeof(numberID));
+		memset(operation, '\0', sizeof(operation));
+		memset(date, '\0', sizeof(date));
+	}
 public:
 	Operation();
 	Operation(int id, string numberID, string operation, string date);

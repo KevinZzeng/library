@@ -3,6 +3,7 @@
 
 BookCategory::BookCategory(int ID, string category)
 {
+	init();
 	this->ID = ID;
 	strcpy(this->category, category.c_str());
 }

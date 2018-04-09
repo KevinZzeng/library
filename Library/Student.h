@@ -24,6 +24,13 @@ private:
 	int money;
 	char email[30];
 	status_class status;
+	void init() {
+		memset(numberID, '\0', sizeof(numberID));
+		memset(password, '\0', sizeof(password));
+		memset(name, '\0', sizeof(name));
+		memset(photo, '\0', sizeof(photo));
+		memset(email, '\0', sizeof(email));
+	}
 public:
 	//¸÷ÖÖsetter ¡¢ getter
 	Student();

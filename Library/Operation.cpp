@@ -2,10 +2,12 @@
 
 Operation::Operation()
 {
+	init();
 }
 
 Operation::Operation(int id, string numberID, string operation, string date)
 {
+	init();
 	this->id = id;
 	strcpy(this->numberID, numberID.c_str());
 	strcpy(this->operation, operation.c_str());

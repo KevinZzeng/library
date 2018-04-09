@@ -9,6 +9,10 @@ class BookCategory {
 private:
 	int ID;
 	char category[40];
+	void init() {
+		memset(category, '\0', sizeof(category));
+
+	}
 public:
 	//ππ‘Ï
 	BookCategory(int ID=-1, string category="");

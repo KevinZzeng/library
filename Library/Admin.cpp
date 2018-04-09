@@ -2,6 +2,7 @@
 
 Admin::Admin(string numberID, string password, string email)
 {
+	init();
 	setId(-1);
 	setNumberID(numberID);
 	setPassword(password);
@@ -10,6 +11,7 @@ Admin::Admin(string numberID, string password, string email)
 
 Admin::Admin()
 {
+	init();
 }
 
 bool Admin::login(string numberID, string password)

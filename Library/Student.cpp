@@ -14,6 +14,7 @@ bool Student::login(string numberID, string password)
 	vector<pair<int, char*> > v;
 	v.push_back(make_pair(0, this->numberID));
 	v.push_back(make_pair(1, this->password));
+
 	Dao dao;
 	vector<map<int, char *>> studentInfo = dao.select("users", v);
 	//查询到对应学生
@@ -34,10 +35,9 @@ bool Student::login(string numberID, string password)
 			this->money += exceedDays;
 		}
 		//更新信息
-		save();
 		strcpy(this->email, student[6]);
-		this->status = (status_class)*(reinterpret_cast<int*> (student[8]));
-
+		this->status = (status_class)*(reinterpret_cast<int*> (student[7]));
+		save();
 		return true;
 	}
 	else {
@@ -109,25 +109,31 @@ bool Student::save()
 	insertInfo.push_back(reinterpret_cast<char*>(&status));
 	//存入数据库
 	bool ifSuccess = true;
-	vector<Student> stuList = Student::getStudent("", "test", -1);
-	if (stuList.empty()) {
-		try {
+	vector<Student> stuList = Student::getStudent("", numberID, -1);
+	try {
+		if (stuList.empty()) {
 			//增加
 			if (id == -1) {
 				dao.insert_into("users", insertInfo);
 			}
-			//更新
 			else {
-				dao.update("users", id, insertInfo);
+				ifSuccess = false;
 			}
 		}
-		catch (exception e) {
-			ifSuccess = false;
+		else {
+			//更新
+			if (id != -1) {
+				dao.update("users", id, insertInfo);
+			}
+			else {
+				ifSuccess = false;
+			}
 		}
 	}
-	else {
+	catch (exception e) {
 		ifSuccess = false;
 	}
+
 
 	return ifSuccess;
 }
@@ -175,10 +181,12 @@ vector<string> Student::getMessages()
 
 Student::Student()
 {
+	init();
 }
 
 Student::Student(int id, string numberID, string password, string name, int major, string photo, int money, string email, status_class status)
 {
+	init();
 	setId(id);
 	setNumberID(numberID);
 	setPassword(password);

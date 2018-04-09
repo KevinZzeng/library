@@ -9,7 +9,10 @@ private:
 	int ID;
 	char numberID[13];
 	char ISBN[35];
-
+	void init() {
+		memset(numberID, '\0', sizeof(numberID));
+		memset(ISBN, '\0', sizeof(ISBN));
+	}
 public:
 	//¹¹Ôìº¯Êý
 	CollectBook(int ID=-1, string numberID="", string ISBN="");

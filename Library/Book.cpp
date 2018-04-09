@@ -3,6 +3,7 @@
 
 Book::Book(int ID,string ISBN, string image, string bookName, string author, string press, string introduction, int category, int amount, int left)
 {
+	init();
 	this->ID = ID;
 	strcpy(this->ISBN, ISBN.c_str());
 	strcpy(this->image, image.c_str());

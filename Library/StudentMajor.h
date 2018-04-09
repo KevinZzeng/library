@@ -6,7 +6,11 @@ class StudentMajor {
 private:
 	int id;
 	char major[50];
+	void init() {
+		memset(major, '\0', sizeof(major));
+	}
 public:
+	StudentMajor();
 	void setMajor(string major);
 	string getMajor();
 	void setId(int id);
