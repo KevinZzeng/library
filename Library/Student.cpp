@@ -143,9 +143,15 @@ bool Student::destory()
 	if (id == -1)
 		return false;
 	else {
-		Dao dao;
-		dao.delete_from("users", id);
-		return true;
+		Dao dao; 
+		vector<BorrowInfo>vb = BorrowInfo::getNowInfoByNumberID(numberID);
+		if (vb.empty()) {
+			dao.delete_from("users", id);
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 }
 
