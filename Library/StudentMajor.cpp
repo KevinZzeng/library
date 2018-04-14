@@ -41,6 +41,16 @@ int StudentMajor::getIDByMajor(string major)
 	return id;
 }
 
+string StudentMajor::getMajorByID(int id)
+{
+	Dao dao;
+	vector<pair<int, char*> > v;
+	map<int, char *> mp = dao.getById("studentMajor", id);
+	//查询major对应的id
+	string result = mp[0];
+	return result;
+}
+
 bool StudentMajor::save()
 {
 	Dao dao;
