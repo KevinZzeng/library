@@ -51,20 +51,25 @@ vector<Student> Student::getStudent(string name, string numberID, int major)
 	char names[50];
 	int majors;
 	char numberIDs[13];
+	memset(names, '\0', sizeof(names));
+	memset(numberIDs, '\0', sizeof(numberIDs));
 	vector<pair<int, char*> > v;
 	vector<map<int, char *>> studentInfo1, studentInfo2, studentInfo3;
 	//根据参数不同获取
 	if (name != "") {
+		v.clear();
 		strcpy(names, name.c_str());
 		v.push_back(make_pair(2, names));
 		studentInfo1 = dao.select("users", v);
 	}
 	if (numberID != "") {
+		v.clear();
 		strcpy(numberIDs, numberID.c_str());
 		v.push_back(make_pair(0, numberIDs));
 		studentInfo2 = dao.select("users", v);
 	}
 	if (major != -1) {
+		v.clear();
 		v.push_back(make_pair(3, reinterpret_cast<char*>(&majors)));
 		studentInfo3 = dao.select("users", v);
 	}

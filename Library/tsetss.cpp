@@ -14,11 +14,15 @@ int main() {
 	//stu.setEmail("qq.com");
 	//stu.setStatus(Student_NORMAL);
 	//stu.save();
-
-	Student login(-1,"test8","test8","name",1,"photo",1,"email", Student_NORMAL);
-	login.save();
+	//Student login(-1,"test20","test20","name",1,"photo",1,"email", Student_NORMAL);
+	//login.save();
 	Student s;
-	s.login("test8", "test8");
+	s.login("test20", "test20");
+	s.setPhoto("has changed");
+	s.save();
+	Student s1;
+	s1.login("test20", "test20");
+	cout << s1.getPhoto() << endl;
 	//login.login("test", "test");
 	//CollectBookÀà²âÊÔ ³É¹¦
 	/*
