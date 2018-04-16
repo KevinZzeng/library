@@ -126,6 +126,6 @@ int main() {
 
 	}
 	*/
-	//getchar();
+	//getchar();0
 	return 0;
 }

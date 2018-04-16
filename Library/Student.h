@@ -8,6 +8,7 @@
 #include "BorrowInfo.h"
 #include "Utils.h"
 using namespace std;
+class Book;
 enum status_class {
 	Student_NORMAL, Student_LOCK
 };

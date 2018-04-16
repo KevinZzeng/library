@@ -20,6 +20,7 @@ string BookCategory::getCategory()
 
 void BookCategory::setCategory(string category)
 {
+	memset(this->category, '\0', sizeof(this->category));
 	strcpy(this->category, category.c_str());
 }
 
