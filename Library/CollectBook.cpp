@@ -1,11 +1,9 @@
 #include "CollectBook.h"
 
-CollectBook::CollectBook()
-{
-}
 
 CollectBook::CollectBook(int ID, string numberID, string ISBN)
 {
+	init();
 	this->ID = ID;
 	strcpy(this->numberID, numberID.c_str());
 	strcpy(this->ISBN, ISBN.c_str());
@@ -50,9 +48,20 @@ bool CollectBook::save()
 	if (this->ID == -1) {//id为-1说明是增加b
 		vector<pair<int, char*>> s;
 		s.push_back(make_pair(0, this->ISBN));
-		vector<map<int, char *>> data = d.select("collectBook", s);
-		if (!data.empty())//如果该本书已经被预约了，说明不能再预约了，直接返回false
+		vector<map<int, char *>> data = d.select("book", s);
+		if (data.empty())//如果该书不存在，则不能被预约
 			return false;
+		vector < map<int, char*> >::iterator ans = data.begin();
+		if ((*ans)[8])//如果还能借则不能预约
+			return false;
+		s.pop_back();
+		s.push_back(make_pair(1, this->ISBN));
+		data = d.select("collectBook", s);
+		for (ans = data.begin(); ans != data.end(); ans++) {
+			if ((*ans)[0] == numberID) {//如果该本书已经被该用户预约了，说明不能再预约了，直接返回false
+				return false;
+			}
+		}
 		if (d.insert_into("collectBook", v))//添加成功则返回true
 			return true;
 	}
@@ -83,7 +92,7 @@ vector<CollectBook> CollectBook::getCollectionByNumberID(string numberID)
 	vector<map<int, char *>> data = d.select("collectBook", s);//查找数据
 	vector<CollectBook> list;
 	for (vector<map<int, char *>>::iterator it = data.begin(); it != data.end(); it++) {
-		CollectBook c_book(reinterpret_cast<int>((*it)[-1]), (*it)[0], (*it)[1]);
+		CollectBook c_book(*reinterpret_cast<int*>((*it)[-1]), (*it)[0], (*it)[1]);
 		list.push_back(c_book);//循环把找出来的字符串数据转成collectBook类型放进list中
 	}
 	return list;

@@ -12,13 +12,13 @@ int daysOfMonth(int y, int m)
 	else
 		return 28 + isLeap(y);
 }
-int daysOfDate(int y,int m,int d)//计算一共的天数  
+int daysOfDate(int y, int m, int d)//计算一共的天数  
 {
 	int days = d;
-	for (int y1 = 2018; y1<y; y++)//计算年  
+	for (int y1 = 2018; y1<y; y1++)//计算年  
 		days += 365 + isLeap(y);
-	for (int m1 = 1; m1<m; m++)//计算月  
-		days += daysOfMonth(y, m);
+	for (int m1 = 1; m1<m; m1++)//计算月  
+		days += daysOfMonth(y, m1);
 	//days+=d.d;  
 	return days;
 }
@@ -26,16 +26,16 @@ bool correctTime(int y, int m, int d) {
 	if (d > 31 || m > 12) {
 		return false;
 	}
-	else if(d == 31 && (m == 1 || m == 3 || m == 5 || m == 7 || m == 8 || m == 10 || m == 12)) {
+	else if (d <= 31 && (m == 1 || m == 3 || m == 5 || m == 7 || m == 8 || m == 10 || m == 12)) {
 		return true;
 	}
-	else if (d == 30 && (m == 4 || m == 6 || m == 9 || m == 11)) {
+	else if (d <= 30 && (m == 4 || m == 6 || m == 9 || m == 11)) {
 		return true;
 	}
-	else if (d == 28 && m == 2 && !isLeap(y)) {
+	else if (d <= 28 && m == 2 && !isLeap(y)) {
 		return true;
 	}
-	else if (d == 29 && m == 2 && isLeap(y)) {
+	else if (d <= 29 && m == 2 && isLeap(y)) {
 		return true;
 	}
 	else {
@@ -57,8 +57,8 @@ string Utils::addTime(string time, int day)
 {
 	int n_y, n_m, n_d;
 	n_y = Utils::fromString<int>(time.substr(0, 4));
-	n_m = Utils::fromString<int>(time.substr(4, 6));
-	n_d = Utils::fromString<int>(time.substr(6, 8));
+	n_m = Utils::fromString<int>(time.substr(5, 6));
+	n_d = Utils::fromString<int>(time.substr(8, 9));
 	n_d += day;
 	while (!correctTime(n_y, n_m, n_d)) {
 		if (n_m > 12) {
@@ -67,8 +67,8 @@ string Utils::addTime(string time, int day)
 			continue;
 		}
 		if (n_m == 1 || n_m == 3 || n_m == 5 || n_m == 7 || n_m == 8 || n_m == 10 || n_m == 12) {
-				n_d -= 31;
-				n_m += 1;
+			n_d -= 31;
+			n_m += 1;
 		}
 		else if (n_m == 4 || n_m == 6 || n_m == 9 || n_m == 11) {
 			n_d -= 30;
@@ -101,14 +101,19 @@ int Utils::compareTime(string nowtime, string targetTime)
 {
 	int n_y, n_m, n_d, t_y, t_m, t_d;
 	n_y = Utils::fromString<int>(nowtime.substr(0, 4));
-	n_m = Utils::fromString<int>(nowtime.substr(4, 6));
-	n_d = Utils::fromString<int>(nowtime.substr(6, 8));
-	t_y = Utils::fromString<int>(nowtime.substr(0, 4));
-	t_m = Utils::fromString<int>(nowtime.substr(4, 6));
-	t_d = Utils::fromString<int>(nowtime.substr(6, 8));
+	n_m = Utils::fromString<int>(nowtime.substr(5, 7));
+	n_d = Utils::fromString<int>(nowtime.substr(8, 10));
+	t_y = Utils::fromString<int>(targetTime.substr(0, 4));
+	t_m = Utils::fromString<int>(targetTime.substr(5, 7));
+	t_d = Utils::fromString<int>(targetTime.substr(8, 10));
 	int day1 = daysOfDate(n_y, n_m, n_d);
 	int day2 = daysOfDate(t_y, t_m, t_d);
-	return day1 - day2;
+	return day2 - day1;
+}
+
+string Utils::getSpecificTime()
+{
+	return string();
 }
 
 void Utils::getIntersection(vector <int>& a, vector<int>& b)

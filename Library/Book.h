@@ -2,6 +2,8 @@
 #include <string>
 #include <vector>
 #include <list>
+#include "md5.h"
+#include "Utils.h"
 #include "Dao.h"
 using namespace std;
 
@@ -18,11 +20,17 @@ private:
 	int category;
 	int amount;
 	int left;
-
+	void init() {
+		memset(ISBN, '\0', sizeof(ISBN));
+		memset(image, '\0', sizeof(image));
+		memset(bookName, '\0', sizeof(bookName));
+		memset(author, '\0', sizeof(author));
+		memset(press, '\0', sizeof(press));
+		memset(introduction, '\0', sizeof(introduction));
+	}
 public:
 	//构造函数
-	Book();
-	Book(int ID,string ISBN, string image,string bookName,string author,string press,string introduction,int category,int amount,int left);
+	Book(int ID=-1,string ISBN="", string image="",string bookName="",string author="",string press="",string introduction="",int category=-1,int amount=-1,int left=-1);
 	//get set方法
 	int getID();
 	string getISBN();
@@ -50,10 +58,10 @@ public:
 	bool destory();
 	//通过ISBN获取书
 	static Book getBookByISBN(string ISBN);
-	//通过分类以及书名来获取书
+	//通过分类以及书名来获取书 category为-1说明查询全部分类
 	static vector<Book> getBooksByName(string bookName, int category);
-	//通过分类以及作者来获取书
+	//通过分类以及作者来获取书  category为-1说明查询全部分类
 	static vector<Book> getBooksByAuthor(string author, int category);
-	//通过分类来获取书
+	//通过分类来获取书 category为-1说明查询全部分类
 	static vector<Book> getBooksByCategory(int category);
 };

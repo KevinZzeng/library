@@ -1,12 +1,9 @@
 #include "Book.h"
 #include <iostream>
 
-Book::Book()
-{
-}
-
 Book::Book(int ID,string ISBN, string image, string bookName, string author, string press, string introduction, int category, int amount, int left)
 {
+	init();
 	this->ID = ID;
 	strcpy(this->ISBN, ISBN.c_str());
 	strcpy(this->image, image.c_str());
@@ -126,26 +123,37 @@ bool Book::save()
 	vector<pair<int, char*> > s;
 	s.push_back(make_pair(0, this->ISBN));
 	vector<map<int, char *>> data = d.select("book", s);//依据ISBN获取这本书的id
-	if (!data.empty()) {//如果这本书的ISBN不存在，才可以增加这本书
-		vector<char*> v;
+
+	vector<char*> v;
+
+	if (this->ID == -1) {//id为1 意思是新增这本书
+		this->setISBN(MD5(Utils::getNowTime()).toStr16());
 		v.push_back(this->ISBN);
 		v.push_back(this->image);
 		v.push_back(this->bookName);
 		v.push_back(this->author);
 		v.push_back(this->press);
 		v.push_back(this->introduction);
-		v.push_back(reinterpret_cast<char*>(category));
-		v.push_back(reinterpret_cast<char*>(amount));
-		v.push_back(reinterpret_cast<char*>(left));
-		if (this->ID == -1) {//id为1 意思是新增这本书
-			if (d.insert_into("book", v))
-				return true;
-		}
-		else {
-			if (d.update("book", this->ID, v))
-				return true;
-		}
+		v.push_back(reinterpret_cast<char*>(&category));
+		v.push_back(reinterpret_cast<char*>(&amount));
+		v.push_back(reinterpret_cast<char*>(&left));
+		if (d.insert_into("book", v))
+			return true;
 	}
+	else {
+		v.push_back(this->ISBN);
+		v.push_back(this->image);
+		v.push_back(this->bookName);
+		v.push_back(this->author);
+		v.push_back(this->press);
+		v.push_back(this->introduction);
+		v.push_back(reinterpret_cast<char*>(&category));
+		v.push_back(reinterpret_cast<char*>(&amount));
+		v.push_back(reinterpret_cast<char*>(&left));
+		if (d.update("book", this->ID, v))
+			return true;
+	}
+
 	return false;
 }
 
@@ -170,7 +178,7 @@ Book Book::getBookByISBN(string ISBN)
 	vector<map<int, char *>> data = d.select("book", s);
 	if (!data.empty()) {//如果不为空
 		map<int, char *> b = data[0];
-		Book book(reinterpret_cast<int>(b[-1]), b[0], b[1], b[2], b[3], b[4], b[5], reinterpret_cast<int>(b[6]), reinterpret_cast<int>(b[7]), reinterpret_cast<int>(b[8]));
+		Book book(*reinterpret_cast<int*>(b[-1]), b[0], b[1], b[2], b[3], b[4], b[5], *reinterpret_cast<int*>(b[6]), *reinterpret_cast<int*>(b[7]),*reinterpret_cast<int*>(b[8]));
 		return book;
 	}
 	return Book();
@@ -182,13 +190,15 @@ vector<Book> Book::getBooksByName(string bookName, int category)
 	vector<pair<int, char*> > s;
 	char n[50];
 	strcpy(n, bookName.c_str());
-	s.push_back(make_pair(6, reinterpret_cast<char*>(category)));
-	s.push_back(make_pair(2, n));
+	//s.push_back(make_pair(2, n));
 	vector<map<int, char *>> data=d.select("book", s);
 	vector<Book> v;
 	for (vector<map<int, char *>>::iterator it = data.begin(); it != data.end(); it++) {
-		v.push_back(Book(reinterpret_cast<int>((*it)[-1]), (*it)[0], (*it)[1], (*it)[2], (*it)[3], (*it)[4], (*it)[5], reinterpret_cast<int>((*it)[6]), reinterpret_cast<int>((*it)[7]), reinterpret_cast<int>((*it)[8])));
+		if(category==-1 || *reinterpret_cast<int*>((*it)[6]) == category)
+			v.push_back(Book(*reinterpret_cast<int*>((*it)[-1]), (*it)[0], (*it)[1], (*it)[2], (*it)[3], (*it)[4], (*it)[5], *reinterpret_cast<int*>((*it)[6]), *reinterpret_cast<int*>((*it)[7]), *reinterpret_cast<int*>((*it)[8])));
 	}
+
+
 	return v;
 }
 
@@ -199,12 +209,12 @@ vector<Book> Book::getBooksByAuthor(string author, int category)
 	vector<pair<int, char*> > s;
 	char a[50];
 	strcpy(a, author.c_str());
-	s.push_back(make_pair(6, reinterpret_cast<char*>(category)));
 	s.push_back(make_pair(3, a));
 	vector<map<int, char *>> data = d.select("book", s);
 	vector<Book> v;
 	for (vector<map<int, char *>>::iterator it = data.begin(); it != data.end(); it++) {
-		v.push_back(Book(reinterpret_cast<int>((*it)[-1]), (*it)[0], (*it)[1], (*it)[2], (*it)[3], (*it)[4], (*it)[5], reinterpret_cast<int>((*it)[6]), reinterpret_cast<int>((*it)[7]), reinterpret_cast<int>((*it)[8])));
+		if (category == -1 || *reinterpret_cast<int*>((*it)[6]) == category)
+			v.push_back(Book(*reinterpret_cast<int*>((*it)[-1]), (*it)[0], (*it)[1], (*it)[2], (*it)[3], (*it)[4], (*it)[5], *reinterpret_cast<int*>((*it)[6]), *reinterpret_cast<int*>((*it)[7]), *reinterpret_cast<int*>((*it)[8])));
 	}
 	return v;
 }
@@ -213,11 +223,12 @@ vector<Book> Book::getBooksByCategory(int category)
 {
 	Dao d;
 	vector<pair<int, char*> > s;
-	s.push_back(make_pair(6, reinterpret_cast<char*>(category)));
+	if(category!=-1)
+		s.push_back(make_pair(6, reinterpret_cast<char*>(&category)));
 	vector<map<int, char *>> data = d.select("book", s);
 	vector<Book> v;
 	for (vector<map<int, char *>>::iterator it = data.begin(); it != data.end(); it++) {
-		v.push_back(Book(reinterpret_cast<int>((*it)[-1]), (*it)[0], (*it)[1], (*it)[2], (*it)[3], (*it)[4], (*it)[5], reinterpret_cast<int>( (*it)[6]), reinterpret_cast<int>((*it)[7]), reinterpret_cast<int>((*it)[8])));
+		v.push_back(Book(*reinterpret_cast<int*>((*it)[-1]), (*it)[0], (*it)[1], (*it)[2], (*it)[3], (*it)[4], (*it)[5], *reinterpret_cast<int*>( (*it)[6]), *reinterpret_cast<int*>((*it)[7]), *reinterpret_cast<int*>((*it)[8])));
 	}
 	return v;
 }

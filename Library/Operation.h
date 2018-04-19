@@ -10,6 +10,11 @@ private:
 	char numberID[13];
 	char operation[200];
 	char date[20];
+	void init() {
+		memset(numberID, '\0', sizeof(numberID));
+		memset(operation, '\0', sizeof(operation));
+		memset(date, '\0', sizeof(date));
+	}
 public:
 	Operation();
 	Operation(int id, string numberID, string operation, string date);
@@ -22,7 +27,7 @@ public:
 	//设置日期
 	void setDate(string date);
 	string getDate();
-	bool save(Admin &ad);
+	bool save();
 	//获取所有操作，返回对象地址（记得delete）
 	static vector<Operation*> getAllOperaions();
 };
