@@ -190,6 +190,13 @@ vector<string> Student::getMessages()
 	return result;
 }
 
+vector<Book> Student::getOrderBook()
+{
+	vector<Order*> vo = Order::getOrdersByNumberID(string(numberID));
+	vector<Book> vb;
+	return vb;
+}
+
 Student::Student()
 {
 	init();

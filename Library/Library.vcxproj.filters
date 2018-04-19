@@ -21,6 +21,9 @@
     <ClCompile Include="md5.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Dao.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
     <ClCompile Include="Table.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -51,19 +54,13 @@
     <ClCompile Include="BookCategory.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="BorrowInfo.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="CollectBook.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Utils.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="tsetss.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="FileOp.cpp">
+    <ClCompile Include="BorrowInfo.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Blist.cpp">
@@ -72,13 +69,10 @@
     <ClCompile Include="DataSys.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Dao.cpp">
+    <ClCompile Include="FileOp.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="ODBC.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="test-database.cpp">
+    <ClCompile Include="tsetss.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -90,9 +84,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="BookCategory.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="BorrowInfo.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="CollectBook.h">
@@ -113,13 +104,13 @@
     <ClInclude Include="Order.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Student.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="StudentMajor.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Utils.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Dao.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Data.h">
@@ -134,7 +125,10 @@
     <ClInclude Include="File.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="FileOp.h">
+    <ClInclude Include="Student.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BorrowInfo.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Blist.h">
@@ -143,7 +137,7 @@
     <ClInclude Include="DataSys.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Dao.h">
+    <ClInclude Include="FileOp.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

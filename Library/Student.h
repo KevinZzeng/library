@@ -2,6 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+#include "Order.h"
 #include "Book.h"
 #include "Dao.h"
 #include "md5.h"
@@ -63,6 +64,8 @@ public:
 	vector<Book> getInterestingBooks();
 	//获取消息提醒
 	vector<string> getMessages();
+	//获取预约书籍
+	vector<Book>getOrderBook();
 
 
 

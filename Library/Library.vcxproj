@@ -144,6 +144,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Admin.cpp" />
+    <ClCompile Include="Blist.cpp" />
     <ClCompile Include="Book.cpp" />
     <ClCompile Include="BookCategory.cpp" />
     <ClCompile Include="BorrowInfo.cpp" />
@@ -151,7 +152,9 @@
     <ClCompile Include="CSendMail.cpp" />
     <ClCompile Include="Dao.cpp" />
     <ClCompile Include="Data.cpp" />
+    <ClCompile Include="DataSys.cpp" />
     <ClCompile Include="File.cpp" />
+    <ClCompile Include="FileOp.cpp" />
     <ClCompile Include="md5.cpp" />
     <ClCompile Include="Table.cpp" />
     <ClCompile Include="Operation.cpp" />
@@ -163,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Admin.h" />
+    <ClInclude Include="Blist.h" />
     <ClInclude Include="Book.h" />
     <ClInclude Include="BookCategory.h" />
     <ClInclude Include="BorrowInfo.h" />
@@ -171,7 +175,9 @@
     <ClInclude Include="Dao.h" />
     <ClInclude Include="Data.h" />
     <ClInclude Include="DaoDemo.h" />
+    <ClInclude Include="DataSys.h" />
     <ClInclude Include="File.h" />
+    <ClInclude Include="FileOp.h" />
     <ClInclude Include="LogInfo.h" />
     <ClInclude Include="md5.h" />
     <ClInclude Include="Operation.h" />

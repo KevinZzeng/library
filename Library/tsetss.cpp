@@ -16,13 +16,41 @@ int main() {
 	//stu.save();
 	//Student login(-1,"test20","test20","name",1,"photo",1,"email", Student_NORMAL);
 	//login.save();
-	Student s;
-	s.login("test20", "test20");
-	s.setPhoto("has changed");
+
+	Student s(-1, "test20", "test20", "name", 1, "photo", 1, "email", Student_NORMAL);
 	s.save();
+	if (s.save()) {
+		cout << "student save successfully" << endl;
+	}
+	if (s.login("test20", "test20")) {
+		s.setPhoto("has changed");
+		if (s.save()) {
+			cout << "change student successfully" << endl;
+		}
+		Book b(-1, "dddddddddddddddd", "iamge", "name", "author", "press", "introduction", 0, 10, 10);
+		if (b.save())
+			cout << "save book successfully" << endl;
+		Dao dao;
+		vector<pair<int, char*>> s;
+		vector<map<int, char *>> data = dao.select("book", s);
+		CollectBook cb(-1, "test20", "F786D1EAF5DA75AE");
+		if (cb.save()) {
+			cout << "collect book successfully" << endl;
+		}
+		string tiem = Utils::getNowTime();
+		string time = Utils::addTime(tiem, 30);
+		BorrowInfo bi(-1, "test20", "F786D1EAF5DA75AE", tiem, time);
+		if (bi.save()) {
+			cout << "borrow book successfully" << endl;
+		}
+		
+	}
 	Student s1;
 	s1.login("test20", "test20");
-	cout << s1.getPhoto() << endl;
+	cout << s1.getStatus() << endl;
+	//Student s1;
+	//s1.login("test20", "test20");
+	//cout << s1.getPhoto() << endl;
 	//login.login("test", "test");
 	//CollectBookÀà²âÊÔ ³É¹¦
 	/*
