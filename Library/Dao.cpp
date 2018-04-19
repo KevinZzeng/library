@@ -3,12 +3,20 @@
 #include <set>
 #include <exception>
 #include <iostream>
-void Dao::init(string tableName)
+bool Dao::init(string tableName)
 {
 	if (!_tableName.compare(tableName))
-		return;
+		return true;
 	this->_tableName = tableName;
-	this->_table = Data::get_table(tableName);
+	try {
+		this->_table = DataSys::getData(tableName);
+		return true;
+	}
+	catch (const int e){
+		if(e == -1)
+			cout << "Table not in disk!" << endl;
+		return false;
+	}
 }
 
 map<int, char*> Dao::transCharPtr2Map(string tableName, int id, char * row)
@@ -19,7 +27,7 @@ map<int, char*> Dao::transCharPtr2Map(string tableName, int id, char * row)
 	int colums;
 	try {
 
-		t_info = _table.get_column_length();
+		t_info = _table->get_column_length();
 		colums = t_info.size();
 	}
 	catch (exception &e) {
@@ -52,7 +60,9 @@ Dao::Dao()
 
 bool Dao::insert_into(const string tableName, vector<char*> &v)
 {
-	init(tableName);
+	
+	if (!init(tableName)) return false;
+
 	//从数据库底层拿到 length[] & colums 也可以 
 	//计算宽度，用于拼接 char* 字符串
 	//Table tab = Data::get_table("daodemo");
@@ -60,8 +70,8 @@ bool Dao::insert_into(const string tableName, vector<char*> &v)
 	int rowLen = 0;
 
 
-	vector<int> t_info = _table.get_column_length();
-	
+	vector<int> t_info = _table->get_column_length();
+
 
 	for (vector<int>::iterator it = t_info.begin(); it != t_info.end(); ++it) {
 		rowLen += *it;
@@ -76,12 +86,13 @@ bool Dao::insert_into(const string tableName, vector<char*> &v)
 
 	//存入数据库
 	try {
-		cout<<"插入成功： ID:" << _table.add(res)<<endl;
+		cout << "插入成功： ID:" << _table->add(res) << endl;
 		Utils::freeSpace(res);
 		return true;
 	}
-	catch (exception &e) {
-		cout << "DataBase Operate Error:" << e.what() << endl;
+	catch (const int e) {
+		if(!e)
+			cout << "DataBase Operate Error" << endl;
 		Utils::freeSpace(res);
 		return false;
 	}
@@ -90,14 +101,15 @@ bool Dao::insert_into(const string tableName, vector<char*> &v)
 
 bool Dao::update(const string tableName, int id, vector<char*> &v)
 {
-	init(tableName);
 	if (id == -1)
 		return false;
+	
+	if (!init(tableName)) return false;
 
 	//获取原来对象属性，确定哪个属性发生了变化，然后进行update
 	vector<int> submitColumn;
-	vector<int> column_len = _table.get_column_length();
-	int i=0;
+	vector<int> column_len = _table->get_column_length();
+	int i = 0;
 	try {
 		map<int, char *> obj = this->getById(tableName, id);
 		for (map<int, char *>::iterator it = obj.begin(); it != obj.end(); ++it) {
@@ -111,14 +123,15 @@ bool Dao::update(const string tableName, int id, vector<char*> &v)
 
 		bool submitFlag = true;
 		//逐项提交到数据库
-		for (vector<int>::iterator it = submitColumn.begin(); submitFlag && it != submitColumn.end() ; ++it) {
-			if (!_table.change(id, *it, v[*it]))
+		for (vector<int>::iterator it = submitColumn.begin(); submitFlag && it != submitColumn.end(); ++it) {
+			if (!_table->change(id, *it, v[*it]))
 				submitFlag = false;
 		}
 		return submitFlag;
 	}
-	catch (exception &e) {
-		cout << "DataBase Operate Error:" << e.what() << endl;
+	catch (int &e) {
+		if(!e)
+			cout << "DataBase Operate Error" << endl;
 		return false;
 	}
 }
@@ -126,50 +139,54 @@ bool Dao::update(const string tableName, int id, vector<char*> &v)
 
 bool Dao::delete_from(const string tableName, int id)
 {
-	init(tableName);
 	if (id == -1)
 		return false;
 
+	if (!init(tableName)) return false;
+
 	try {
-		return _table.del(id);
+		return _table->del(id);
 	}
-	catch (exception &e) {
-		cout << "DataBase Operate Error:" << e.what() << endl;
+	catch (int e) {
+		if(!e)
+			cout << "DataBase Operate Error!" << endl;
 		return false;
 	}
 }
 
 map<int, char *> Dao::getById(const string tableName, int id)
 {
-	init(tableName);
 	map<int, char *> res;
 	if (id == -1)
 		return res;
 
+	if (!init(tableName)) return res;
 	char *ret = NULL;
 	try {
-		ret = _table.get(id);
+		ret = _table->get(id);
 	}
-	catch (exception &e) {
-		cout << "DataBase Operate Error:" << e.what() << endl;
+	catch (int &e) {
+		if(!e)
+			cout << "DataBase Operate Error" << endl;
 		return res;
 	}
 	res = this->transCharPtr2Map(tableName, id, ret);
-	
+
 	Utils::freeSpace(ret);
-	
+
 	return res;
 }
 
-vector<map<int, char*>> Dao::select(const string tableName, vector<pair<int, char*>>& v)
+
+vector<map<int, char*>> Dao::select(const string tableName, vector<pair<int, char*>>& v, int colIndex, char * val)
 {
-	init(tableName);
 	//获取符合查询条件的 ID
 	vector<map<int, char*>> res;
+	if(!init(tableName)) return res;
 	try {
-		//如果查询条件是空，那么就是获取一整张表信息
-		if (v.size() == 0) {
-			vector<pair<int, char*> > tableAll=_table.get_all();
+		//如果查询条件是空 && 不是模糊查询某一列 ，那么就是获取一整张表信息
+		if (v.size() == 0 && colIndex == -1 && val == NULL) {
+			vector<pair<int, char*> > tableAll = _table->get_all();
 			for (vector<pair<int, char*> >::iterator it = tableAll.begin(); it != tableAll.end(); ++it) {
 				res.push_back(this->transCharPtr2Map(tableName, it->first, it->second));
 				//释放数据库 new 的字符串
@@ -177,22 +194,30 @@ vector<map<int, char*>> Dao::select(const string tableName, vector<pair<int, cha
 			}
 		}
 		else {
-			vector<int> t1 = _table.find(v[0].first, v[0].second);
-			for (int i = 1; i < v.size(); i++) {
-				Utils::getIntersection(t1, _table.find(v[i].first, v[i].second));
+			vector<int> t1;
+			//多条件无单调件模糊
+			if (v.size()) {
+				t1= _table->find(v[0].first, v[0].second);
+				for (int i = 1; i < v.size(); i++) {
+					Utils::getIntersection(t1, _table->find(v[i].first, v[i].second));
+				}
 			}
-
+			//多条件 && 一个模糊条件
+			if(v.size() && colIndex != -1 && val != NULL)
+				Utils::getIntersection(t1, _table->fuzzy_search(colIndex, val));
+			//只模糊查询
+			if(!v.size())
+				t1 = _table->fuzzy_search(colIndex, val);
 
 			for (vector<int>::iterator it = t1.begin(); it != t1.end(); ++it) {
 				res.push_back(this->getById(tableName, *it));
 			}
 		}
-
 		return res;
 	}
-	catch (exception &e) {
-		cout << "DataBase Operate Error:" << e.what() << endl;
+	catch (int &e) {
+		if(!e)
+			cout << "DataBase Operate Error" << endl;
 		return res;
 	}
-
 }

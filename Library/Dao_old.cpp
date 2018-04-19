@@ -1,9 +1,9 @@
-#include "Dao.h"
+#include "Dao_old.h"
 #include "Utils.h"
 #include <set>
 #include <exception>
 #include <iostream>
-void Dao::init(string tableName)
+void Dao_old::init(string tableName)
 {
 	if (!_tableName.compare(tableName))
 		return;
@@ -11,7 +11,7 @@ void Dao::init(string tableName)
 	this->_table = Data::get_table(tableName);
 }
 
-map<int, char*> Dao::transCharPtr2Map(string tableName, int id, char * row)
+map<int, char*> Dao_old::transCharPtr2Map(string tableName, int id, char * row)
 {
 	map<int, char *> res;
 	//从数据库底层根据表名拿到 length[] 
@@ -45,12 +45,12 @@ map<int, char*> Dao::transCharPtr2Map(string tableName, int id, char * row)
 	return res;
 }
 
-Dao::Dao()
+Dao_old::Dao_old()
 {
 	this->_tableName = "";
 }
 
-bool Dao::insert_into(const string tableName, vector<char*> &v)
+bool Dao_old::insert_into(const string tableName, vector<char*> &v)
 {
 	init(tableName);
 	//从数据库底层拿到 length[] & colums 也可以 
@@ -61,7 +61,7 @@ bool Dao::insert_into(const string tableName, vector<char*> &v)
 
 
 	vector<int> t_info = _table.get_column_length();
-
+	
 
 	for (vector<int>::iterator it = t_info.begin(); it != t_info.end(); ++it) {
 		rowLen += *it;
@@ -76,7 +76,7 @@ bool Dao::insert_into(const string tableName, vector<char*> &v)
 
 	//存入数据库
 	try {
-		cout << "插入成功： ID:" << _table.add(res) << endl;
+		cout<<"插入成功： ID:" << _table.add(res)<<endl;
 		Utils::freeSpace(res);
 		return true;
 	}
@@ -88,7 +88,7 @@ bool Dao::insert_into(const string tableName, vector<char*> &v)
 
 }
 
-bool Dao::update(const string tableName, int id, vector<char*> &v)
+bool Dao_old::update(const string tableName, int id, vector<char*> &v)
 {
 	init(tableName);
 	if (id == -1)
@@ -97,7 +97,7 @@ bool Dao::update(const string tableName, int id, vector<char*> &v)
 	//获取原来对象属性，确定哪个属性发生了变化，然后进行update
 	vector<int> submitColumn;
 	vector<int> column_len = _table.get_column_length();
-	int i = 0;
+	int i=0;
 	try {
 		map<int, char *> obj = this->getById(tableName, id);
 		for (map<int, char *>::iterator it = obj.begin(); it != obj.end(); ++it) {
@@ -111,7 +111,7 @@ bool Dao::update(const string tableName, int id, vector<char*> &v)
 
 		bool submitFlag = true;
 		//逐项提交到数据库
-		for (vector<int>::iterator it = submitColumn.begin(); submitFlag && it != submitColumn.end(); ++it) {
+		for (vector<int>::iterator it = submitColumn.begin(); submitFlag && it != submitColumn.end() ; ++it) {
 			if (!_table.change(id, *it, v[*it]))
 				submitFlag = false;
 		}
@@ -124,7 +124,7 @@ bool Dao::update(const string tableName, int id, vector<char*> &v)
 }
 
 
-bool Dao::delete_from(const string tableName, int id)
+bool Dao_old::delete_from(const string tableName, int id)
 {
 	init(tableName);
 	if (id == -1)
@@ -139,7 +139,7 @@ bool Dao::delete_from(const string tableName, int id)
 	}
 }
 
-map<int, char *> Dao::getById(const string tableName, int id)
+map<int, char *> Dao_old::getById(const string tableName, int id)
 {
 	init(tableName);
 	map<int, char *> res;
@@ -155,13 +155,13 @@ map<int, char *> Dao::getById(const string tableName, int id)
 		return res;
 	}
 	res = this->transCharPtr2Map(tableName, id, ret);
-
+	
 	Utils::freeSpace(ret);
-
+	
 	return res;
 }
 
-vector<map<int, char*>> Dao::select(const string tableName, vector<pair<int, char*>>& v)
+vector<map<int, char*>> Dao_old::select(const string tableName, vector<pair<int, char*>>& v)
 {
 	init(tableName);
 	//获取符合查询条件的 ID
@@ -169,7 +169,7 @@ vector<map<int, char*>> Dao::select(const string tableName, vector<pair<int, cha
 	try {
 		//如果查询条件是空，那么就是获取一整张表信息
 		if (v.size() == 0) {
-			vector<pair<int, char*> > tableAll = _table.get_all();
+			vector<pair<int, char*> > tableAll=_table.get_all();
 			for (vector<pair<int, char*> >::iterator it = tableAll.begin(); it != tableAll.end(); ++it) {
 				res.push_back(this->transCharPtr2Map(tableName, it->first, it->second));
 				//释放数据库 new 的字符串

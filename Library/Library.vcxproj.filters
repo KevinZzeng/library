@@ -21,9 +21,6 @@
     <ClCompile Include="md5.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Dao.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Table.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -64,6 +61,24 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="tsetss.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="FileOp.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Blist.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DataSys.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Dao.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ODBC.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test-database.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -107,9 +122,6 @@
     <ClInclude Include="Utils.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Dao.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Data.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -120,6 +132,18 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="File.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FileOp.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Blist.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DataSys.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Dao.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
