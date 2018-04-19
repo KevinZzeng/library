@@ -20,6 +20,7 @@ string BookCategory::getCategory()
 
 void BookCategory::setCategory(string category)
 {
+	memset(this->category, '\0', sizeof(this->category));
 	strcpy(this->category, category.c_str());
 }
 
@@ -77,6 +78,7 @@ int BookCategory::getCategoryIdByName(string categoryName)
 	Dao d;
 	vector<pair<int, char*> > s;
 	char n[40];
+	memset(n, '\0', sizeof(n));
 	strcpy(n, categoryName.c_str());
 	s.push_back(make_pair(0, n));//根据分类名字查找分类ID
 	vector<map<int, char *>> data = d.select("bookCategory", s);

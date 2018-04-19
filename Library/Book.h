@@ -5,6 +5,7 @@
 #include "md5.h"
 #include "Utils.h"
 #include "Dao.h"
+#include "BorrowInfo.h"
 using namespace std;
 
 class Book {

@@ -41,6 +41,29 @@ int StudentMajor::getIDByMajor(string major)
 	return id;
 }
 
+string StudentMajor::getMajorByID(int id)
+{
+	Dao dao;
+	vector<pair<int, char*> > v;
+	map<int, char *> mp = dao.getById("studentMajor", id);
+	//查询major对应的id
+	string result = mp[0];
+	return result;
+}
+
+map<int, string> StudentMajor::getAllMajor()
+{
+	map<int, string> m;
+	vector<pair<int, char*> >v;
+	Dao dao;
+	vector<map<int, char *>>  vm = dao.select("studentMajor", v);
+	for (vector<map<int, char*>>::iterator it = vm.begin(); it != vm.end(); it++) {
+		m.insert(pair<int, string>((*reinterpret_cast<int*>((*it)[-1])), (*it)[0]));
+	}
+	
+	return m;
+}
+
 bool StudentMajor::save()
 {
 	Dao dao;

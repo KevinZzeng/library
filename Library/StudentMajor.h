@@ -17,6 +17,8 @@ public:
 	int getId();
 	//查询不存在返回-1
 	static int getIDByMajor(string major);
+	static string getMajorByID(int id);
+	static map<int, string> getAllMajor();
 	bool save();
 	bool destory();
 };

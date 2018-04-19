@@ -61,7 +61,8 @@ bool Admin::save()
 				dao.insert_into("administrator", insertInfo);
 			}
 			else {
-				dao.update("administrator", id, insertInfo);
+				ifSuccess = false;
+
 			}
 
 		}
@@ -70,7 +71,12 @@ bool Admin::save()
 		}
 	}
 	else {
-		ifSuccess = false;
+		if (id != -1) {
+			dao.update("administrator", id, insertInfo);
+		}
+		else {
+			ifSuccess = false;
+		}
 	}
 
 	return ifSuccess;
