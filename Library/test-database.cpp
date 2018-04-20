@@ -132,7 +132,7 @@
 //
 //
 //	//模糊查询
-//	//vector<map<int, char*>> res = dao.select("daodemo", vector<pair<int, char *> >(), 2, "1");
+//	//vector<map<int, char*>> res = dao.select("daodemo", vector<pair<int, char *> >(), 2, "h0");
 //	//cout << "符合条件数据条数： " << res.size() << endl;
 //	//print_obj(res);
 //

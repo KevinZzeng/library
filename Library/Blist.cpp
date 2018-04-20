@@ -86,7 +86,7 @@ vector<int> Blist::fuzzy_search(int column, char* key)
 		for (int i = 0; i < bsize; i++, s += length + 4)
 		{
 			int k = 0;
-			for (int j = 0; key[k] && j<length;)
+			for (int j = 0; k<slen && j<length;)
 			{
 				if (k == -1 || s[j] == key[k])
 					k++, j++;
